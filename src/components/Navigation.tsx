@@ -53,7 +53,10 @@ const Navigation = () => {
           SHARP CUTS
         </button>
         
-        <div className="hidden md:flex items-center space-x-12">
+<div className="hidden md:flex flex-1 items-center justify-end space-x-12 pr-12">
+
+
+
           <button 
             onClick={() => scrollToSection('services')} 
             className="text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300"
