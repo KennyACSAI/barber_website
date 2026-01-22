@@ -1,0 +1,99 @@
+{
+  "nav": {
+    "services": "SERVIZI",
+    "contact": "CONTATTI"
+  },
+  "hero": {
+    "title1": "SAN LORENZO",
+    "title2": "BARBER",
+    "subtitle": "Esperienza di grooming premium nel cuore di Roma",
+    "cta": "PRENOTA ORA"
+  },
+  "services": {
+    "label": "SERVIZI",
+    "title": "Cosa Offriamo",
+    "items": {
+      "classic": {
+        "title": "TAGLIO CLASSICO",
+        "description": "Tecniche tradizionali di barbiere con precisione moderna per il taglio perfetto"
+      },
+      "beard": {
+        "title": "RIFINITURA BARBA",
+        "description": "Modellatura e styling esperti per mantenere la tua barba curata e definita"
+      },
+      "shave": {
+        "title": "RASATURA CON ASCIUGAMANO CALDO",
+        "description": "Lussuosa rasatura con rasoio a mano libera e asciugamani caldi per una finitura perfetta"
+      },
+      "package": {
+        "title": "PACCHETTO COMPLETO",
+        "description": "Esperienza di styling completa che include taglio, barba e trattamento viso"
+      }
+    }
+  },
+  "contact": {
+    "label": "VIENI A TROVARCI",
+    "title1": "Prenota il Tuo",
+    "title2": "Appuntamento",
+    "phone": "TELEFONO",
+    "shop": "NEGOZIO",
+    "bookOnline": "PRENOTA ONLINE",
+    "bookingText": "Prenota il tuo appuntamento online o chiamaci.",
+    "freshaText": "Disponibile anche su",
+    "googleMaps": "Google Maps",
+    "appleMaps": "Apple Maps",
+    "followUs": "SEGUICI",
+    "hours": "ORARI",
+    "days": {
+      "monday": "Lunedì",
+      "tuesday": "Martedì",
+      "wednesday": "Mercoledì",
+      "thursday": "Giovedì",
+      "friday": "Venerdì",
+      "saturday": "Sabato",
+      "sunday": "Domenica"
+    },
+    "closed": "Chiuso"
+  },
+  "barbers": {
+    "label": "IL TEAM",
+    "title": "I Nostri Barbieri",
+    "roles": {
+      "owner": "Titolare & Master Barber",
+      "barber": "Barbiere"
+    }
+  },
+  "auth": {
+    "email": "EMAIL",
+    "password": "PASSWORD",
+    "firstName": "NOME",
+    "lastName": "COGNOME",
+    "forgotPassword": "Password dimenticata?",
+    "loading": "Caricamento...",
+    "or": "oppure",
+    "noAccount": "Non hai un account?",
+    "signUpLink": "Registrati",
+    "hasAccount": "Hai già un account?",
+    "loginLink": "Accedi",
+    "backToHome": "Torna alla home",
+    "passwordHint": "Minimo 8 caratteri",
+    "login": {
+      "label": "BENTORNATO",
+      "title": "Accedi",
+      "submit": "ACCEDI"
+    },
+    "signup": {
+      "label": "INIZIA ORA",
+      "title": "Crea Account",
+      "submit": "REGISTRATI"
+    },
+    "verification": {
+      "label": "VERIFICA",
+      "title": "Controlla la Tua Email",
+      "description": "Abbiamo inviato un codice a 6 cifre a",
+      "submit": "VERIFICA",
+      "noCode": "Non hai ricevuto il codice?",
+      "resend": "Invia di nuovo"
+    }
+  }
+}

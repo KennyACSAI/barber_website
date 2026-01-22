@@ -1,24 +1,27 @@
-import { Phone, MapPin, Instagram, Clock, Calendar } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { Phone, MapPin, Instagram, Clock, Calendar, Navigation } from "lucide-react";
 
 const Contact = () => {
+  const { t } = useTranslation();
+
   return (
     <section id="contact" className="py-32 bg-background">
       <div className="container mx-auto px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-20">
             <div>
-              <h2 className="text-minimal text-muted-foreground mb-4">VISIT US</h2>
+              <h2 className="text-minimal text-muted-foreground mb-4">{t('contact.label')}</h2>
               <h3 className="text-4xl md:text-6xl font-light text-architectural mb-12">
-                Book Your
+                {t('contact.title1')}
                 <br />
-                Appointment
+                {t('contact.title2')}
               </h3>
               
               <div className="space-y-8">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <Phone className="w-4 h-4 text-foreground" />
-                    <h4 className="text-minimal text-muted-foreground">PHONE</h4>
+                    <h4 className="text-minimal text-muted-foreground">{t('contact.phone')}</h4>
                   </div>
                   <a href="tel:+393292069578" className="text-xl hover:text-muted-foreground transition-colors duration-300 block">
                     +39 329 206 9578
@@ -31,25 +34,45 @@ const Contact = () => {
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <MapPin className="w-4 h-4 text-foreground" />
-                    <h4 className="text-minimal text-muted-foreground">SHOP</h4>
+                    <h4 className="text-minimal text-muted-foreground">{t('contact.shop')}</h4>
                   </div>
                   <address className="text-xl not-italic">
                     Via Tiburtina, 137/139
                     <br />
                     00185 Roma RM, Italy
                   </address>
+                  <div className="flex items-center gap-4 mt-3">
+                    <a 
+                      href="https://maps.app.goo.gl/FErUESSapsPns1RZ9?g_st=ic" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
+                    >
+                      <Navigation className="w-4 h-4" />
+                      {t('contact.googleMaps')}
+                    </a>
+                    <a 
+                      href="https://maps.apple.com/?address=Via%20Tiburtina%20137/139,%2000185%20Roma%20RM,%20Italy" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
+                    >
+                      <Navigation className="w-4 h-4" />
+                      {t('contact.appleMaps')}
+                    </a>
+                  </div>
                 </div>
 
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <Calendar className="w-4 h-4 text-foreground" />
-                    <h4 className="text-minimal text-muted-foreground">BOOK ONLINE</h4>
+                    <h4 className="text-minimal text-muted-foreground">{t('contact.bookOnline')}</h4>
                   </div>
                   <p className="text-lg text-muted-foreground">
-                    Call us or visit the shop to book your appointment.
+                    {t('contact.bookingText')}
                   </p>
                   <p className="text-sm text-muted-foreground mt-2">
-                    Also available on{" "}
+                    {t('contact.freshaText')}{" "}
                     <a 
                       href="https://www.fresha.com/lvp/ferro-barber-shop-via-tiburtina-roma-VEQ701" 
                       target="_blank" 
@@ -65,10 +88,7 @@ const Contact = () => {
             
             <div className="space-y-8">
               <div>
-                <div className="flex items-center gap-2 mb-6">
-                  <Instagram className="w-4 h-4 text-foreground" />
-                  <h4 className="text-minimal text-muted-foreground">FOLLOW US</h4>
-                </div>
+                <h4 className="text-minimal text-muted-foreground mb-6">{t('contact.followUs')}</h4>
                 <div className="space-y-4">
                   <a 
                     href="https://www.instagram.com/sanlorenzobarber/" 
@@ -85,16 +105,16 @@ const Contact = () => {
               <div className="pt-12 border-t border-border">
                 <div className="flex items-center gap-2 mb-4">
                   <Clock className="w-4 h-4 text-foreground" />
-                  <h4 className="text-minimal text-muted-foreground">HOURS</h4>
+                  <h4 className="text-minimal text-muted-foreground">{t('contact.hours')}</h4>
                 </div>
                 <div className="space-y-2 text-muted-foreground">
-                  <p>Monday: Closed</p>
-                  <p>Tuesday: 09:00 - 19:30</p>
-                  <p>Wednesday: 09:00 - 19:30</p>
-                  <p>Thursday: 09:30 - 19:30</p>
-                  <p>Friday: 09:00 - 19:30</p>
-                  <p>Saturday: 09:30 - 19:30</p>
-                  <p>Sunday: Closed</p>
+                  <p>{t('contact.days.monday')}: {t('contact.closed')}</p>
+                  <p>{t('contact.days.tuesday')}: 09:00 - 19:30</p>
+                  <p>{t('contact.days.wednesday')}: 09:00 - 19:30</p>
+                  <p>{t('contact.days.thursday')}: 09:30 - 19:30</p>
+                  <p>{t('contact.days.friday')}: 09:00 - 19:30</p>
+                  <p>{t('contact.days.saturday')}: 09:30 - 19:30</p>
+                  <p>{t('contact.days.sunday')}: {t('contact.closed')}</p>
                 </div>
               </div>
             </div>

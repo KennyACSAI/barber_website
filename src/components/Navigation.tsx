@@ -1,21 +1,43 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const scrollToSection = (sectionId: string) => {
+    setIsMenuOpen(false);
+    
+    // If not on home page, navigate to home with hash
+    if (location.pathname !== "/") {
+      navigate(`/#${sectionId}`);
+      return;
+    }
+    
+    // If on home page, scroll to section
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-    setIsMenuOpen(false);
   };
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
     setIsMenuOpen(false);
+    
+    // If not on home page, navigate to home
+    if (location.pathname !== "/") {
+      navigate("/");
+      return;
+    }
+    
+    // If on home page, scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -33,17 +55,18 @@ const Navigation = () => {
             onClick={() => scrollToSection('services')} 
             className="text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300"
           >
-            SERVICES
+            {t('nav.services')}
           </button>
           <button 
             onClick={() => scrollToSection('contact')} 
             className="text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300"
           >
-            CONTACT
+            {t('nav.contact')}
           </button>
         </div>
 
         <div className="hidden md:flex items-center space-x-4">
+          <LanguageSwitcher />
           <ThemeToggle />
         </div>
 
@@ -65,17 +88,18 @@ const Navigation = () => {
               onClick={() => scrollToSection('services')} 
               className="block text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300"
             >
-              SERVICES
+              {t('nav.services')}
             </button>
             <button 
               onClick={() => scrollToSection('contact')} 
               className="block text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300"
             >
-              CONTACT
+              {t('nav.contact')}
             </button>
             
-            {/* Mobile Theme Toggle */}
-            <div className="pt-4 border-t border-border">
+            {/* Mobile Language & Theme Toggle */}
+            <div className="pt-4 border-t border-border flex items-center justify-between">
+              <LanguageSwitcher />
               <ThemeToggle />
             </div>
           </div>

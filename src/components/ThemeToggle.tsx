@@ -6,16 +6,29 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    if (theme === "light") {
-      setTheme("dark");
-    } else if (theme === "dark") {
-      setTheme("light");
+    const newTheme = theme === "light" ? "dark" : theme === "dark" ? "light" : 
+      window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark";
+    
+    // Add fade-out class to content
+    const content = document.getElementById('page-content');
+    if (content) {
+      content.classList.add('lang-fade-out');
+      
+      // Change theme after fade out
+      setTimeout(() => {
+        setTheme(newTheme);
+        
+        // Remove fade-out and add fade-in
+        content.classList.remove('lang-fade-out');
+        content.classList.add('lang-fade-in');
+        
+        // Clean up fade-in class
+        setTimeout(() => {
+          content.classList.remove('lang-fade-in');
+        }, 300);
+      }, 200);
     } else {
-      // If system, detect current and toggle
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-      setTheme(systemTheme === "dark" ? "light" : "dark");
+      setTheme(newTheme);
     }
   };
 

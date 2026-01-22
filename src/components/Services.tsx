@@ -1,24 +1,28 @@
+import { useTranslation } from "react-i18next";
+
 const Services = () => {
+  const { t } = useTranslation();
+
   const services = [
     {
       number: "01",
-      title: "CLASSIC CUT",
-      description: "Traditional barbering techniques with modern precision for the perfect haircut"
+      titleKey: "services.items.classic.title",
+      descKey: "services.items.classic.description"
     },
     {
       number: "02", 
-      title: "BEARD TRIM",
-      description: "Expert shaping and styling to keep your beard looking sharp and well-groomed"
+      titleKey: "services.items.beard.title",
+      descKey: "services.items.beard.description"
     },
     {
       number: "03",
-      title: "HOT TOWEL SHAVE",
-      description: "Luxurious straight razor shave with hot towels for the smoothest finish"
+      titleKey: "services.items.shave.title",
+      descKey: "services.items.shave.description"
     },
     {
       number: "04",
-      title: "GROOMING PACKAGE",
-      description: "Complete styling experience including haircut, beard work, and facial treatment"
+      titleKey: "services.items.package.title",
+      descKey: "services.items.package.description"
     }
   ];
 
@@ -27,9 +31,9 @@ const Services = () => {
       <div className="container mx-auto px-6">
         <div className="max-w-7xl mx-auto">
           <div className="mb-20">
-            <h2 className="text-minimal text-muted-foreground mb-4">SERVICES</h2>
+            <h2 className="text-minimal text-muted-foreground mb-4">{t('services.label')}</h2>
             <h3 className="text-4xl md:text-6xl font-light text-architectural">
-              What We Offer
+              {t('services.title')}
             </h3>
           </div>
           
@@ -42,10 +46,10 @@ const Services = () => {
                   </span>
                   <div>
                     <h4 className="text-2xl font-light mb-4 text-architectural group-hover:text-muted-foreground transition-colors duration-500">
-                      {service.title}
+                      {t(service.titleKey)}
                     </h4>
                     <p className="text-muted-foreground leading-relaxed">
-                      {service.description}
+                      {t(service.descKey)}
                     </p>
                   </div>
                 </div>

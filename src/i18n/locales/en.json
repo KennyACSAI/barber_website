@@ -1,0 +1,99 @@
+{
+  "nav": {
+    "services": "SERVICES",
+    "contact": "CONTACT"
+  },
+  "hero": {
+    "title1": "SAN LORENZO",
+    "title2": "BARBER",
+    "subtitle": "Premium grooming experience in the heart of Roma",
+    "cta": "MAKE APPOINTMENT"
+  },
+  "services": {
+    "label": "SERVICES",
+    "title": "What We Offer",
+    "items": {
+      "classic": {
+        "title": "CLASSIC CUT",
+        "description": "Traditional barbering techniques with modern precision for the perfect haircut"
+      },
+      "beard": {
+        "title": "BEARD TRIM",
+        "description": "Expert shaping and styling to keep your beard looking sharp and well-groomed"
+      },
+      "shave": {
+        "title": "HOT TOWEL SHAVE",
+        "description": "Luxurious straight razor shave with hot towels for the smoothest finish"
+      },
+      "package": {
+        "title": "GROOMING PACKAGE",
+        "description": "Complete styling experience including haircut, beard work, and facial treatment"
+      }
+    }
+  },
+  "contact": {
+    "label": "VISIT US",
+    "title1": "Book Your",
+    "title2": "Appointment",
+    "phone": "PHONE",
+    "shop": "SHOP",
+    "bookOnline": "BOOK ONLINE",
+    "bookingText": "Book your appointment online or give us a call.",
+    "freshaText": "Also available on",
+    "googleMaps": "Google Maps",
+    "appleMaps": "Apple Maps",
+    "followUs": "FOLLOW US",
+    "hours": "HOURS",
+    "days": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "closed": "Closed"
+  },
+  "barbers": {
+    "label": "THE TEAM",
+    "title": "Our Barbers",
+    "roles": {
+      "owner": "Owner & Master Barber",
+      "barber": "Barber"
+    }
+  },
+  "auth": {
+    "email": "EMAIL",
+    "password": "PASSWORD",
+    "firstName": "FIRST NAME",
+    "lastName": "LAST NAME",
+    "forgotPassword": "Forgot password?",
+    "loading": "Loading...",
+    "or": "or",
+    "noAccount": "Don't have an account?",
+    "signUpLink": "Sign up",
+    "hasAccount": "Already have an account?",
+    "loginLink": "Log in",
+    "backToHome": "Back to home",
+    "passwordHint": "Minimum 8 characters",
+    "login": {
+      "label": "WELCOME BACK",
+      "title": "Log In",
+      "submit": "LOG IN"
+    },
+    "signup": {
+      "label": "GET STARTED",
+      "title": "Create Account",
+      "submit": "SIGN UP"
+    },
+    "verification": {
+      "label": "VERIFICATION",
+      "title": "Check Your Email",
+      "description": "We've sent a 6-digit code to",
+      "submit": "VERIFY",
+      "noCode": "Didn't receive the code?",
+      "resend": "Resend"
+    }
+  }
+}
