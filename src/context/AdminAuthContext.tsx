@@ -6,7 +6,8 @@ const SUPER_ADMIN = {
   username: 'superadmin',
   password: 'SanLorenzo@2024!',
   role: 'super_admin' as const,
-  name: 'Super Admin'
+  name: 'Super Admin',
+  createdAt: '1970-01-01T00:00:00.000Z', // constant
 };
 
 export interface AdminUser {
