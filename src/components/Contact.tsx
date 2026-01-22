@@ -1,24 +1,47 @@
 import { useTranslation } from "react-i18next";
 import { Phone, MapPin, Instagram, Clock, Calendar, Navigation } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const Contact = () => {
   const { t } = useTranslation();
+  
+  // Scroll animation hooks
+  const leftColumnAnimation = useScrollAnimation({ threshold: 0.15 });
+  const rightColumnAnimation = useScrollAnimation({ threshold: 0.15 });
 
   return (
     <section id="contact" className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-20">
-            <div>
-              <h2 className="text-minimal text-muted-foreground mb-4">{t('contact.label')}</h2>
-              <h3 className="text-4xl md:text-6xl font-light text-architectural mb-12">
+            {/* Left Column */}
+            <div ref={leftColumnAnimation.ref}>
+              <h2 
+                className={`text-minimal text-muted-foreground mb-4 scroll-animate scroll-fade-up ${
+                  leftColumnAnimation.isVisible ? 'is-visible' : ''
+                }`}
+              >
+                {t('contact.label')}
+              </h2>
+              <h3 
+                className={`text-4xl md:text-6xl font-light text-architectural mb-12 scroll-animate scroll-blur-up ${
+                  leftColumnAnimation.isVisible ? 'is-visible' : ''
+                }`}
+                style={{ transitionDelay: '100ms' }}
+              >
                 {t('contact.title1')}
                 <br />
                 {t('contact.title2')}
               </h3>
               
               <div className="space-y-8">
-                <div>
+                {/* Phone */}
+                <div 
+                  className={`scroll-animate scroll-fade-left ${
+                    leftColumnAnimation.isVisible ? 'is-visible' : ''
+                  }`}
+                  style={{ transitionDelay: '200ms' }}
+                >
                   <div className="flex items-center gap-2 mb-2">
                     <Phone className="w-4 h-4 text-foreground" />
                     <h4 className="text-minimal text-muted-foreground">{t('contact.phone')}</h4>
@@ -31,7 +54,13 @@ const Contact = () => {
                   </a>
                 </div>
                 
-                <div>
+                {/* Address */}
+                <div
+                  className={`scroll-animate scroll-fade-left ${
+                    leftColumnAnimation.isVisible ? 'is-visible' : ''
+                  }`}
+                  style={{ transitionDelay: '300ms' }}
+                >
                   <div className="flex items-center gap-2 mb-2">
                     <MapPin className="w-4 h-4 text-foreground" />
                     <h4 className="text-minimal text-muted-foreground">{t('contact.shop')}</h4>
@@ -63,7 +92,13 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div>
+                {/* Book Online */}
+                <div
+                  className={`scroll-animate scroll-fade-left ${
+                    leftColumnAnimation.isVisible ? 'is-visible' : ''
+                  }`}
+                  style={{ transitionDelay: '400ms' }}
+                >
                   <div className="flex items-center gap-2 mb-2">
                     <Calendar className="w-4 h-4 text-foreground" />
                     <h4 className="text-minimal text-muted-foreground">{t('contact.bookOnline')}</h4>
@@ -86,8 +121,15 @@ const Contact = () => {
               </div>
             </div>
             
-            <div className="space-y-8">
-              <div>
+            {/* Right Column */}
+            <div ref={rightColumnAnimation.ref} className="space-y-8">
+              {/* Social */}
+              <div
+                className={`scroll-animate scroll-fade-right ${
+                  rightColumnAnimation.isVisible ? 'is-visible' : ''
+                }`}
+                style={{ transitionDelay: '150ms' }}
+              >
                 <h4 className="text-minimal text-muted-foreground mb-6">{t('contact.followUs')}</h4>
                 <div className="space-y-4">
                   <a 
@@ -102,19 +144,37 @@ const Contact = () => {
                 </div>
               </div>
               
-              <div className="pt-12 border-t border-border">
+              {/* Hours */}
+              <div 
+                className={`pt-12 border-t border-border scroll-animate scroll-fade-right ${
+                  rightColumnAnimation.isVisible ? 'is-visible' : ''
+                }`}
+                style={{ transitionDelay: '250ms' }}
+              >
                 <div className="flex items-center gap-2 mb-4">
                   <Clock className="w-4 h-4 text-foreground" />
                   <h4 className="text-minimal text-muted-foreground">{t('contact.hours')}</h4>
                 </div>
                 <div className="space-y-2 text-muted-foreground">
-                  <p>{t('contact.days.monday')}: {t('contact.closed')}</p>
-                  <p>{t('contact.days.tuesday')}: 09:00 - 19:30</p>
-                  <p>{t('contact.days.wednesday')}: 09:00 - 19:30</p>
-                  <p>{t('contact.days.thursday')}: 09:30 - 19:30</p>
-                  <p>{t('contact.days.friday')}: 09:00 - 19:30</p>
-                  <p>{t('contact.days.saturday')}: 09:30 - 19:30</p>
-                  <p>{t('contact.days.sunday')}: {t('contact.closed')}</p>
+                  {[
+                    { day: 'monday', hours: t('contact.closed') },
+                    { day: 'tuesday', hours: '09:00 - 19:30' },
+                    { day: 'wednesday', hours: '09:00 - 19:30' },
+                    { day: 'thursday', hours: '09:30 - 19:30' },
+                    { day: 'friday', hours: '09:00 - 19:30' },
+                    { day: 'saturday', hours: '09:30 - 19:30' },
+                    { day: 'sunday', hours: t('contact.closed') },
+                  ].map((item, index) => (
+                    <p 
+                      key={item.day}
+                      className={`scroll-animate scroll-fade-up ${
+                        rightColumnAnimation.isVisible ? 'is-visible' : ''
+                      }`}
+                      style={{ transitionDelay: `${350 + index * 50}ms` }}
+                    >
+                      {t(`contact.days.${item.day}`)}: {item.hours}
+                    </p>
+                  ))}
                 </div>
               </div>
             </div>

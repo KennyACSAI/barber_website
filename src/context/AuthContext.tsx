@@ -5,10 +5,12 @@ interface User {
   firstName: string;
   lastName: string;
   email: string;
+  phone: string;
 }
 
 interface Appointment {
   id: string;
+  oderId: string;
   date: string;
   time: string;
   barber: string;
@@ -21,12 +23,16 @@ interface AuthContextType {
   isAuthenticated: boolean;
   appointments: Appointment[];
   login: (email: string, password: string) => Promise<boolean>;
-  signup: (firstName: string, lastName: string, email: string, password: string) => Promise<boolean>;
+  signup: (firstName: string, lastName: string, email: string, phone: string, password: string) => Promise<boolean>;
   logout: () => void;
   updateUser: (data: Partial<User>) => void;
   deleteAccount: () => void;
-  addAppointment: (appointment: Omit<Appointment, 'id' | 'status'>) => void;
+addAppointment: (appointment: Omit<Appointment, 'id' | 'status' | 'oderId'>) => void;
   cancelAppointment: (id: string) => void;
+  // Admin functions
+  getAllUsers: () => User[];
+  getAllAppointments: () => (Appointment & { user: User })[];
+  deleteAppointmentAdmin: (appointmentId: string, oderId: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -68,7 +74,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return false;
   };
 
-  const signup = async (firstName: string, lastName: string, email: string, password: string): Promise<boolean> => {
+  const signup = async (firstName: string, lastName: string, email: string, phone: string, password: string): Promise<boolean> => {
     // Simulate API call
     const savedUsers = JSON.parse(localStorage.getItem('users') || '[]');
     
@@ -82,6 +88,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       firstName,
       lastName,
       email,
+      phone,
       password // In real app, hash this!
     };
 
@@ -134,12 +141,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     logout();
   };
 
-  const addAppointment = (appointment: Omit<Appointment, 'id' | 'status'>) => {
+const addAppointment = (appointment: Omit<Appointment, 'id' | 'status' | 'oderId'>) => {
     if (!user) return;
 
     const newAppointment: Appointment = {
       ...appointment,
       id: `apt_${Date.now()}`,
+      oderId: user.id,
       status: 'upcoming'
     };
 
@@ -160,6 +168,54 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.setItem(`appointments_${user.id}`, JSON.stringify(updatedAppointments));
   };
 
+  // Admin functions
+  const getAllUsers = (): User[] => {
+    const savedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+    return savedUsers.map((u: any) => {
+      const { password: _, ...userWithoutPassword } = u;
+      return userWithoutPassword;
+    });
+  };
+
+  const getAllAppointments = (): (Appointment & { user: User })[] => {
+    const allUsers = getAllUsers();
+    const allAppointments: (Appointment & { user: User })[] = [];
+
+    allUsers.forEach((u: User) => {
+      const userAppointments = JSON.parse(localStorage.getItem(`appointments_${u.id}`) || '[]');
+      userAppointments.forEach((apt: Appointment) => {
+        allAppointments.push({
+          ...apt,
+          user: u
+        });
+      });
+    });
+
+    // Sort by date and time (newest first)
+    return allAppointments.sort((a, b) => {
+      const dateA = new Date(`${a.date}T${a.time}`);
+      const dateB = new Date(`${b.date}T${b.time}`);
+      return dateB.getTime() - dateA.getTime();
+    });
+  };
+
+  const deleteAppointmentAdmin = (appointmentId: string, oderId: string) => {
+    // Get user's appointments
+    const userAppointments = JSON.parse(localStorage.getItem(`appointments_${oderId}`) || '[]');
+    
+    // Filter out the deleted appointment
+    const updatedAppointments = userAppointments.filter((apt: Appointment) => apt.id !== appointmentId);
+    
+    // Save back
+    localStorage.setItem(`appointments_${oderId}`, JSON.stringify(updatedAppointments));
+
+    // If current user is viewing their own appointments, update state
+    if (user && user.id === oderId) {
+      setAppointments(updatedAppointments);
+      localStorage.setItem('appointments', JSON.stringify(updatedAppointments));
+    }
+  };
+
   return (
     <AuthContext.Provider value={{
       user,
@@ -171,7 +227,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       updateUser,
       deleteAccount,
       addAppointment,
-      cancelAppointment
+      cancelAppointment,
+      getAllUsers,
+      getAllAppointments,
+      deleteAppointmentAdmin
     }}>
       {children}
     </AuthContext.Provider>

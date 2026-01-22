@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Eye, EyeOff, X } from "lucide-react";
+import { Eye, EyeOff, X, Phone } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import logo from "@/assets/logo.jpg";
 import { useAuth } from "@/context/AuthContext";
@@ -20,17 +20,41 @@ const Signup = () => {
     firstName: "",
     lastName: "",
     email: "",
+    phone: "",
     password: ""
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    
+    // Format phone number as user types
+    if (name === 'phone') {
+      // Remove all non-digits
+      const digits = value.replace(/\D/g, '');
+      // Limit to 15 digits (international standard)
+      const limited = digits.slice(0, 15);
+      setFormData({
+        ...formData,
+        [name]: limited
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
     setError('');
+  };
+
+  const formatPhoneDisplay = (phone: string) => {
+    // Format for display: +39 XXX XXX XXXX
+    if (phone.length === 0) return '';
+    if (phone.length <= 2) return `+${phone}`;
+    if (phone.length <= 5) return `+${phone.slice(0, 2)} ${phone.slice(2)}`;
+    if (phone.length <= 8) return `+${phone.slice(0, 2)} ${phone.slice(2, 5)} ${phone.slice(5)}`;
+    return `+${phone.slice(0, 2)} ${phone.slice(2, 5)} ${phone.slice(5, 8)} ${phone.slice(8)}`;
   };
 
   const handleCodeChange = (index: number, value: string) => {
@@ -59,6 +83,13 @@ const Signup = () => {
     setIsLoading(true);
     setError('');
     
+    // Validate phone number (minimum 10 digits)
+    if (formData.phone.length < 10) {
+      setError(t('auth.phoneError'));
+      setIsLoading(false);
+      return;
+    }
+    
     // For demo, skip straight to verification modal
     // In real app, would send verification email here
     setTimeout(() => {
@@ -77,7 +108,8 @@ const Signup = () => {
     const success = await signup(
       formData.firstName, 
       formData.lastName, 
-      formData.email, 
+      formData.email,
+      formData.phone,
       formData.password
     );
     
@@ -174,6 +206,27 @@ const Signup = () => {
                   className="h-12 bg-transparent border-border focus:border-foreground transition-colors duration-300"
                   placeholder="email@example.com"
                 />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-minimal text-muted-foreground">
+                  {t('auth.phone')}
+                </label>
+                <div className="relative">
+                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    type="tel"
+                    name="phone"
+                    value={formatPhoneDisplay(formData.phone)}
+                    onChange={handleChange}
+                    required
+                    className="h-12 bg-transparent border-border focus:border-foreground transition-colors duration-300 pl-12"
+                    placeholder="+39 329 206 9578"
+                  />
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {t('auth.phoneHint')}
+                </p>
               </div>
 
               <div className="space-y-2">

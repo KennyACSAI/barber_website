@@ -70,6 +70,7 @@
     "password": "PASSWORD",
     "firstName": "FIRST NAME",
     "lastName": "LAST NAME",
+    "phone": "PHONE NUMBER",
     "forgotPassword": "Forgot password?",
     "loading": "Loading...",
     "or": "or",
@@ -79,6 +80,8 @@
     "loginLink": "Log in",
     "backToHome": "Back to home",
     "passwordHint": "Minimum 8 characters",
+    "phoneHint": "Include country code (e.g., +39 for Italy)",
+    "phoneError": "Please enter a valid phone number",
     "loginError": "Invalid email or password",
     "signupError": "Email already exists",
     "login": {
@@ -177,6 +180,53 @@
       "message": "This action cannot be undone. All your data will be permanently deleted.",
       "cancel": "Cancel",
       "confirm": "Delete"
+    }
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "subtitle": "Manage all appointments",
+    "search": "Search by name, email, phone...",
+    "noAppointments": "No appointments found",
+    "showing": "Showing",
+    "of": "of",
+    "appointments": "appointments",
+    "delete": "Delete",
+    "stats": {
+      "total": "Total",
+      "upcoming": "Upcoming",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "status": {
+      "upcoming": "Upcoming",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "filter": {
+      "allStatus": "All Status",
+      "allBarbers": "All Barbers"
+    },
+    "table": {
+      "date": "Date",
+      "time": "Time",
+      "client": "Client",
+      "phone": "Phone",
+      "service": "Service",
+      "barber": "Barber",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "deleteModal": {
+      "title": "Delete Appointment?",
+      "message": "This will permanently remove this appointment from the system.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    },
+    "detail": {
+      "title": "Appointment Details",
+      "clientInfo": "Client Information",
+      "serviceInfo": "Service Information",
+      "close": "Close"
     }
   }
 }

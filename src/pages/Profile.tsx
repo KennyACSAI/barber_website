@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Calendar, Clock, User, Settings, LogOut, Trash2, X, Scissors } from "lucide-react";
+import { Calendar, Clock, User, Settings, LogOut, Trash2, X, Scissors, Phone } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { useAuth } from "@/context/AuthContext";
 
@@ -17,7 +17,8 @@ const Profile = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [editForm, setEditForm] = useState({
     firstName: user?.firstName || '',
-    lastName: user?.lastName || ''
+    lastName: user?.lastName || '',
+    phone: user?.phone || ''
   });
 
   // Redirect if not authenticated
@@ -39,6 +40,22 @@ const Profile = () => {
   const handleDeleteAccount = () => {
     deleteAccount();
     navigate('/');
+  };
+
+  const formatPhone = (phone: string) => {
+    if (!phone) return '-';
+    if (phone.length <= 2) return `+${phone}`;
+    if (phone.length <= 5) return `+${phone.slice(0, 2)} ${phone.slice(2)}`;
+    if (phone.length <= 8) return `+${phone.slice(0, 2)} ${phone.slice(2, 5)} ${phone.slice(5)}`;
+    return `+${phone.slice(0, 2)} ${phone.slice(2, 5)} ${phone.slice(5, 8)} ${phone.slice(8)}`;
+  };
+
+  const handlePhoneChange = (value: string) => {
+    // Remove all non-digits
+    const digits = value.replace(/\D/g, '');
+    // Limit to 15 digits
+    const limited = digits.slice(0, 15);
+    setEditForm({ ...editForm, phone: limited });
   };
 
   const upcomingAppointments = appointments.filter(apt => apt.status === 'upcoming');
@@ -71,6 +88,12 @@ const Profile = () => {
                 {user.firstName} {user.lastName}
               </h1>
               <p className="text-muted-foreground">{user.email}</p>
+              {user.phone && (
+                <p className="text-muted-foreground mt-1 flex items-center justify-center gap-2">
+                  <Phone className="w-4 h-4" />
+                  {formatPhone(user.phone)}
+                </p>
+              )}
             </div>
 
             {/* Tabs */}
@@ -217,6 +240,18 @@ const Profile = () => {
                           className="h-12 bg-transparent border-border focus:border-foreground transition-colors duration-300"
                         />
                       </div>
+                      <div className="space-y-2">
+                        <label className="text-minimal text-muted-foreground">{t('auth.phone')}</label>
+                        <div className="relative">
+                          <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                          <Input
+                            value={formatPhone(editForm.phone)}
+                            onChange={(e) => handlePhoneChange(e.target.value)}
+                            className="h-12 bg-transparent border-border focus:border-foreground transition-colors duration-300 pl-12"
+                            placeholder="+39 329 206 9578"
+                          />
+                        </div>
+                      </div>
                       <div className="flex gap-4">
                         <Button
                           onClick={handleSaveProfile}
@@ -247,10 +282,17 @@ const Profile = () => {
                         <p className="text-sm text-muted-foreground">{t('auth.email')}</p>
                         <p className="text-lg">{user.email}</p>
                       </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">{t('auth.phone')}</p>
+                        <p className="text-lg flex items-center gap-2">
+                          <Phone className="w-4 h-4 text-muted-foreground" />
+                          {user.phone ? formatPhone(user.phone) : '-'}
+                        </p>
+                      </div>
                       <Button
                         variant="outline"
                         onClick={() => {
-                          setEditForm({ firstName: user.firstName, lastName: user.lastName });
+                          setEditForm({ firstName: user.firstName, lastName: user.lastName, phone: user.phone || '' });
                           setIsEditing(true);
                         }}
                         className="w-full text-minimal"

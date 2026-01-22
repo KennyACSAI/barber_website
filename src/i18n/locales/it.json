@@ -70,6 +70,7 @@
     "password": "PASSWORD",
     "firstName": "NOME",
     "lastName": "COGNOME",
+    "phone": "NUMERO DI TELEFONO",
     "forgotPassword": "Password dimenticata?",
     "loading": "Caricamento...",
     "or": "oppure",
@@ -79,6 +80,8 @@
     "loginLink": "Accedi",
     "backToHome": "Torna alla home",
     "passwordHint": "Minimo 8 caratteri",
+    "phoneHint": "Includi il prefisso (es. +39 per Italia)",
+    "phoneError": "Inserisci un numero di telefono valido",
     "loginError": "Email o password non validi",
     "signupError": "Email già registrata",
     "login": {
@@ -177,6 +180,53 @@
       "message": "Questa azione non può essere annullata. Tutti i tuoi dati saranno eliminati permanentemente.",
       "cancel": "Annulla",
       "confirm": "Elimina"
+    }
+  },
+  "admin": {
+    "title": "Pannello Admin",
+    "subtitle": "Gestisci tutti gli appuntamenti",
+    "search": "Cerca per nome, email, telefono...",
+    "noAppointments": "Nessun appuntamento trovato",
+    "showing": "Mostrando",
+    "of": "di",
+    "appointments": "appuntamenti",
+    "delete": "Elimina",
+    "stats": {
+      "total": "Totale",
+      "upcoming": "In Arrivo",
+      "completed": "Completati",
+      "cancelled": "Annullati"
+    },
+    "status": {
+      "upcoming": "In Arrivo",
+      "completed": "Completato",
+      "cancelled": "Annullato"
+    },
+    "filter": {
+      "allStatus": "Tutti gli Stati",
+      "allBarbers": "Tutti i Barbieri"
+    },
+    "table": {
+      "date": "Data",
+      "time": "Orario",
+      "client": "Cliente",
+      "phone": "Telefono",
+      "service": "Servizio",
+      "barber": "Barbiere",
+      "status": "Stato",
+      "actions": "Azioni"
+    },
+    "deleteModal": {
+      "title": "Eliminare l'Appuntamento?",
+      "message": "Questo rimuoverà permanentemente l'appuntamento dal sistema.",
+      "cancel": "Annulla",
+      "confirm": "Elimina"
+    },
+    "detail": {
+      "title": "Dettagli Appuntamento",
+      "clientInfo": "Informazioni Cliente",
+      "serviceInfo": "Informazioni Servizio",
+      "close": "Chiudi"
     }
   }
 }
