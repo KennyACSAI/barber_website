@@ -14,26 +14,29 @@ const Contact = () => {
               
               <div className="space-y-8">
                 <div>
-                  <h4 className="text-minimal text-muted-foreground mb-2">EMAIL</h4>
-                  <a href="mailto:hello@sharpcuts.com" className="text-xl hover:text-muted-foreground transition-colors duration-300">
-                    hello@sharpcuts.com
-                  </a>
-                </div>
-                
-                <div>
                   <h4 className="text-minimal text-muted-foreground mb-2">PHONE</h4>
-                  <a href="tel:+1234567890" className="text-xl hover:text-muted-foreground transition-colors duration-300">
-                    +1 (234) 567-8900
+                  <a href="tel:+393292069578" className="text-xl hover:text-muted-foreground transition-colors duration-300 block">
+                    +39 329 206 9578
+                  </a>
+                  <a href="tel:+390689235068" className="text-xl hover:text-muted-foreground transition-colors duration-300 block mt-2">
+                    +39 06 8923 5068
                   </a>
                 </div>
                 
                 <div>
                   <h4 className="text-minimal text-muted-foreground mb-2">SHOP</h4>
                   <address className="text-xl not-italic">
-                    456 Main Street
+                    Via Tiburtina, 137/139
                     <br />
-                    Brooklyn, NY 11201
+                    00185 Roma RM, Italy
                   </address>
+                </div>
+
+                <div>
+                  <h4 className="text-minimal text-muted-foreground mb-2">BOOK ONLINE</h4>
+                  <a href="https://www.fresha.com/lvp/ferro-barber-shop-via-tiburtina-roma-VEQ701" target="_blank" rel="noopener noreferrer" className="text-xl hover:text-muted-foreground transition-colors duration-300">
+                    Book on Fresha
+                  </a>
                 </div>
               </div>
             </div>
@@ -42,14 +45,8 @@ const Contact = () => {
               <div>
                 <h4 className="text-minimal text-muted-foreground mb-6">FOLLOW US</h4>
                 <div className="space-y-4">
-                  <a href="#" className="block text-xl hover:text-muted-foreground transition-colors duration-300">
+                  <a href="https://www.instagram.com/sanlorenzobarber/" target="_blank" rel="noopener noreferrer" className="block text-xl hover:text-muted-foreground transition-colors duration-300">
                     Instagram
-                  </a>
-                  <a href="#" className="block text-xl hover:text-muted-foreground transition-colors duration-300">
-                    Facebook
-                  </a>
-                  <a href="#" className="block text-xl hover:text-muted-foreground transition-colors duration-300">
-                    TikTok
                   </a>
                 </div>
               </div>
@@ -57,9 +54,13 @@ const Contact = () => {
               <div className="pt-12 border-t border-border">
                 <h4 className="text-minimal text-muted-foreground mb-4">HOURS</h4>
                 <div className="space-y-2 text-muted-foreground">
-                  <p>Monday - Friday: 9am - 8pm</p>
-                  <p>Saturday: 9am - 6pm</p>
-                  <p>Sunday: 10am - 4pm</p>
+                  <p>Monday: Closed</p>
+                  <p>Tuesday: 09:00 - 19:30</p>
+                  <p>Wednesday: 09:00 - 19:30</p>
+                  <p>Thursday: 09:30 - 19:30</p>
+                  <p>Friday: 09:00 - 19:30</p>
+                  <p>Saturday: 09:30 - 19:30</p>
+                  <p>Sunday: Closed</p>
                 </div>
               </div>
             </div>

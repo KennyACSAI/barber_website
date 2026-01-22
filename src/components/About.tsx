@@ -47,12 +47,12 @@ const About = () => {
               <div className="pt-8 border-t border-border">
                 <div className="grid grid-cols-2 gap-8">
                   <div>
-                    <h4 className="text-minimal text-muted-foreground mb-2">ESTABLISHED</h4>
-                    <p className="text-xl">2015</p>
+                    <h4 className="text-minimal text-muted-foreground mb-2">LOCATION</h4>
+                    <p className="text-xl">San Lorenzo, Roma</p>
                   </div>
                   <div>
-                    <h4 className="text-minimal text-muted-foreground mb-2">CLIENTS</h4>
-                    <p className="text-xl">10,000+</p>
+                    <h4 className="text-minimal text-muted-foreground mb-2">STYLE</h4>
+                    <p className="text-xl">Classic & Modern</p>
                   </div>
                 </div>
               </div>
