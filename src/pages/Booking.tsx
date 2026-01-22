@@ -27,30 +27,31 @@ const Booking = () => {
   const [isBooking, setIsBooking] = useState(false);
   const [bookedSlots, setBookedSlots] = useState<BookedSlot[]>([]);
 
+  // Function to load booked slots from localStorage
+  const loadBookedSlots = () => {
+    const slots: BookedSlot[] = [];
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    
+    // Get appointments from all users
+    users.forEach((user: any) => {
+      const userAppointments = JSON.parse(localStorage.getItem(`appointments_${user.id}`) || '[]');
+      userAppointments.forEach((apt: any) => {
+        if (apt.status === 'upcoming') {
+          slots.push({
+            date: apt.date,
+            time: apt.time,
+            barber: apt.barber,
+            service: apt.service
+          });
+        }
+      });
+    });
+    
+    setBookedSlots(slots);
+  };
+
   // Load all booked appointments from localStorage
   useEffect(() => {
-    const loadBookedSlots = () => {
-      const slots: BookedSlot[] = [];
-      const users = JSON.parse(localStorage.getItem('users') || '[]');
-      
-      // Get appointments from all users
-      users.forEach((user: any) => {
-        const userAppointments = JSON.parse(localStorage.getItem(`appointments_${user.id}`) || '[]');
-        userAppointments.forEach((apt: any) => {
-          if (apt.status === 'upcoming') {
-            slots.push({
-              date: apt.date,
-              time: apt.time,
-              barber: apt.barber,
-              service: apt.service
-            });
-          }
-        });
-      });
-      
-      setBookedSlots(slots);
-    };
-    
     loadBookedSlots();
   }, []);
 
@@ -118,23 +119,45 @@ const Booking = () => {
     "16:30", "17:00", "17:30", "18:00", "18:30", "19:00"
   ];
 
+  const CLOSING_TIME = 19 * 60 + 30; // 19:30 in minutes
+
+  // Convert minutes to HH:MM format
+  const minutesToTime = (minutes: number): string => {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+  };
+
+  // Get end time for a booking
+  const getEndTime = (startTime: string, serviceDurationMinutes: number): string => {
+    const startMinutes = timeToMinutes(startTime);
+    return minutesToTime(startMinutes + serviceDurationMinutes);
+  };
+
+  // Count available time slots for a specific date
+  const countAvailableSlots = (dateStr: string): number => {
+    if (!selectedBarber || !selectedService) return 0;
+    const slots = getAvailableTimeSlots(dateStr);
+    return slots.filter(time => getSlotBlockReason(dateStr, time) === null).length;
+  };
+
   // Format date to YYYY-MM-DD string (moved up so other functions can use it)
   const formatDate = (date: Date) => {
     return date.toISOString().split('T')[0];
   };
 
   const formatDisplayDate = (date: Date) => {
-    const days = ['DOM', 'LUN', 'MAR', 'MER', 'GIO', 'VEN', 'SAB'];
-    const months = ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'];
+    const dayKeys = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const monthKeys = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
     return {
-      day: days[date.getDay()],
+      day: t(`booking.daysShort.${dayKeys[date.getDay()]}`),
       date: date.getDate(),
-      month: months[date.getMonth()]
+      month: t(`booking.monthsShort.${monthKeys[date.getMonth()]}`)
     };
   };
 
   // Check if a time slot is available for the selected service
-  // Considers: overlap with existing bookings AND if service fits before closing time
+  // Considers: overlap with existing bookings and closing time
   const isSlotBooked = (date: string, time: string): boolean => {
     if (!selectedBarber || !selectedService) return false;
     
@@ -144,11 +167,8 @@ const Booking = () => {
     const slotStart = timeToMinutes(time);
     const slotEnd = slotStart + userServiceDuration;
     
-    // Shop closes at 19:30 (1170 minutes from midnight)
-    const closingTime = 19 * 60 + 30; // 19:30
-    
     // Check if selected service would extend past closing time
-    if (slotEnd > closingTime) {
+    if (slotEnd > CLOSING_TIME) {
       return true; // Block this slot - service won't fit
     }
     
@@ -175,10 +195,7 @@ const Booking = () => {
     const slotStart = timeToMinutes(time);
     const slotEnd = slotStart + userServiceDuration;
     
-    // Shop closes at 19:30
-    const closingTime = 19 * 60 + 30;
-    
-    if (slotEnd > closingTime) {
+    if (slotEnd > CLOSING_TIME) {
       return 'closing'; // Service would extend past closing
     }
     
@@ -248,6 +265,10 @@ const Booking = () => {
 
   const handleNext = () => {
     if (step < 4) {
+      // Refresh booked slots when going to time selection to prevent double-booking
+      if (step === 3) {
+        loadBookedSlots();
+      }
       setStep(step + 1);
       scrollToTop();
     }
@@ -262,6 +283,40 @@ const Booking = () => {
 
   const handleBooking = async () => {
     if (!selectedBarber || !selectedService || !selectedDate || !selectedTime) return;
+
+    // Session timeout validation - check if date is still valid
+    const now = new Date();
+    const todayStr = formatDate(now);
+    
+    // Check if selected date is in the past
+    if (selectedDate < todayStr) {
+      // Date is in the past - reset booking
+      setSelectedDate(null);
+      setSelectedTime(null);
+      setStep(3);
+      return;
+    }
+    
+    // If it's today, check if the selected time has passed
+    if (selectedDate === todayStr) {
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      const selectedMinutes = timeToMinutes(selectedTime);
+      
+      // Add 1 hour buffer - can't book if appointment is within 1 hour
+      if (selectedMinutes <= currentMinutes + 60) {
+        setSelectedTime(null);
+        setStep(4);
+        return;
+      }
+    }
+
+    // Double-check slot is still available (prevent race conditions)
+    const slotReason = getSlotBlockReason(selectedDate, selectedTime);
+    if (slotReason !== null) {
+      setSelectedTime(null);
+      setStep(4);
+      return;
+    }
 
     setIsBooking(true);
     
@@ -355,7 +410,13 @@ const Booking = () => {
                         {barbers.map((barber) => (
                           <button
                             key={barber.id}
-                            onClick={() => setSelectedBarber(barber.id)}
+                            onClick={() => {
+                              if (selectedBarber !== barber.id) {
+                                setSelectedBarber(barber.id);
+                                setSelectedDate(null); // Reset date when barber changes
+                                setSelectedTime(null); // Reset time when barber changes
+                              }
+                            }}
                             className={`p-6 border rounded-lg transition-all duration-300 text-left ${
                               selectedBarber === barber.id
                                 ? 'border-foreground bg-foreground/5'
@@ -389,7 +450,13 @@ const Booking = () => {
                         {services.map((service) => (
                           <button
                             key={service.id}
-                            onClick={() => setSelectedService(service.id)}
+                            onClick={() => {
+                              if (selectedService !== service.id) {
+                                setSelectedService(service.id);
+                                setSelectedDate(null); // Reset date when service changes
+                                setSelectedTime(null); // Reset time when service changes
+                              }
+                            }}
                             className={`p-6 border rounded-lg transition-all duration-300 text-left ${
                               selectedService === service.id
                                 ? 'border-foreground bg-foreground/5'
@@ -420,27 +487,44 @@ const Booking = () => {
                           const display = formatDisplayDate(date);
                           const dateStr = formatDate(date);
                           const isToday = dateStr === formatDate(new Date());
+                          const availableSlots = countAvailableSlots(dateStr);
+                          const isFullyBooked = availableSlots === 0;
                           return (
                             <button
                               key={dateStr}
                               onClick={() => {
-                                setSelectedDate(dateStr);
-                                setSelectedTime(null); // Reset time when date changes
+                                if (!isFullyBooked) {
+                                  setSelectedDate(dateStr);
+                                  setSelectedTime(null); // Reset time when date changes
+                                }
                               }}
+                              disabled={isFullyBooked}
                               className={`p-4 border rounded-lg transition-all duration-300 text-center relative ${
-                                selectedDate === dateStr
-                                  ? 'border-foreground bg-foreground/5'
-                                  : 'border-border hover:border-foreground/50'
+                                isFullyBooked
+                                  ? 'border-border bg-muted/50 cursor-not-allowed opacity-60'
+                                  : selectedDate === dateStr
+                                    ? 'border-foreground bg-foreground/5'
+                                    : 'border-border hover:border-foreground/50'
                               }`}
                             >
-                              {isToday && (
+                              {isToday && !isFullyBooked && (
                                 <span className="absolute -top-2 left-1/2 -translate-x-1/2 text-[10px] bg-foreground text-background px-2 py-0.5 rounded-full">
                                   {t('booking.today')}
                                 </span>
                               )}
+                              {isFullyBooked && (
+                                <span className="absolute -top-2 left-1/2 -translate-x-1/2 text-[10px] bg-destructive text-destructive-foreground px-2 py-0.5 rounded-full">
+                                  {t('booking.full')}
+                                </span>
+                              )}
                               <p className="text-xs text-muted-foreground">{display.day}</p>
-                              <p className="text-2xl font-light">{display.date}</p>
+                              <p className={`text-2xl font-light ${isFullyBooked ? 'text-muted-foreground' : ''}`}>{display.date}</p>
                               <p className="text-xs text-muted-foreground">{display.month}</p>
+                              {!isFullyBooked && availableSlots > 0 && (
+                                <p className="text-[10px] text-muted-foreground mt-1">
+                                  {availableSlots} {t('booking.slotsLeft')}
+                                </p>
+                              )}
                             </button>
                           );
                         })}
@@ -543,8 +627,11 @@ const Booking = () => {
                       {selectedDate && (
                         <p><span className="text-muted-foreground">{t('booking.steps.date')}:</span> {selectedDate}</p>
                       )}
-                      {selectedTime && (
-                        <p><span className="text-muted-foreground">{t('booking.steps.time')}:</span> {selectedTime}</p>
+                      {selectedTime && selectedService && (
+                        <p>
+                          <span className="text-muted-foreground">{t('booking.steps.time')}:</span>{' '}
+                          {selectedTime} - {getEndTime(selectedTime, services.find(s => s.id === selectedService)?.durationMinutes || 30)}
+                        </p>
                       )}
                     </div>
                   </div>

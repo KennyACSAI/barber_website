@@ -120,7 +120,32 @@
     "today": "OGGI",
     "taken": "Occupato",
     "tooLate": "Troppo tardi",
+    "full": "PIENO",
+    "slotsLeft": "posti",
     "noSlots": "Nessun orario disponibile per questa data",
+    "daysShort": {
+      "sunday": "DOM",
+      "monday": "LUN",
+      "tuesday": "MAR",
+      "wednesday": "MER",
+      "thursday": "GIO",
+      "friday": "VEN",
+      "saturday": "SAB"
+    },
+    "monthsShort": {
+      "jan": "Gen",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "Mag",
+      "jun": "Giu",
+      "jul": "Lug",
+      "aug": "Ago",
+      "sep": "Set",
+      "oct": "Ott",
+      "nov": "Nov",
+      "dec": "Dic"
+    },
     "success": {
       "title": "Prenotazione Confermata!",
       "message": "Ti aspettiamo",

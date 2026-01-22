@@ -120,7 +120,32 @@
     "today": "TODAY",
     "taken": "Taken",
     "tooLate": "Too late",
+    "full": "FULL",
+    "slotsLeft": "slots",
     "noSlots": "No available time slots for this date",
+    "daysShort": {
+      "sunday": "SUN",
+      "monday": "MON",
+      "tuesday": "TUE",
+      "wednesday": "WED",
+      "thursday": "THU",
+      "friday": "FRI",
+      "saturday": "SAT"
+    },
+    "monthsShort": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "May",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Dec"
+    },
     "success": {
       "title": "Booking Confirmed!",
       "message": "We look forward to seeing you",
