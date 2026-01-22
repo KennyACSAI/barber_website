@@ -24,10 +24,10 @@ const Barbers = () => {
   ];
 
   return (
-    <section id="barbers" className="py-32 bg-muted/20">
+    <section id="barbers" className="py-16 md:py-24 bg-muted/20">
       <div className="container mx-auto px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
+          <div className="text-center mb-12">
             <h2 className="text-minimal text-muted-foreground mb-4">{t('barbers.label')}</h2>
             <h3 className="text-4xl md:text-6xl font-light text-architectural">
               {t('barbers.title')}

@@ -1,12 +1,14 @@
 {
   "nav": {
     "services": "SERVICES",
-    "contact": "CONTACT"
+    "contact": "CONTACT",
+    "login": "LOG IN",
+    "profile": "PROFILE"
   },
   "hero": {
     "title1": "SAN LORENZO",
     "title2": "BARBER",
-    "subtitle": "Premium grooming experience in the heart of Roma",
+    "subtitle": "Premium barbershop experience in the heart of Roma",
     "cta": "MAKE APPOINTMENT"
   },
   "services": {
@@ -19,14 +21,14 @@
       },
       "beard": {
         "title": "BEARD TRIM",
-        "description": "Expert shaping and styling to keep your beard looking sharp and well-groomed"
+        "description": "Expert shaping and styling to keep your beard looking sharp and well-defined"
       },
       "shave": {
         "title": "HOT TOWEL SHAVE",
         "description": "Luxurious straight razor shave with hot towels for the smoothest finish"
       },
       "package": {
-        "title": "GROOMING PACKAGE",
+        "title": "FULL PACKAGE",
         "description": "Complete styling experience including haircut, beard work, and facial treatment"
       }
     }
@@ -77,6 +79,8 @@
     "loginLink": "Log in",
     "backToHome": "Back to home",
     "passwordHint": "Minimum 8 characters",
+    "loginError": "Invalid email or password",
+    "signupError": "Email already exists",
     "login": {
       "label": "WELCOME BACK",
       "title": "Log In",
@@ -94,6 +98,56 @@
       "submit": "VERIFY",
       "noCode": "Didn't receive the code?",
       "resend": "Resend"
+    }
+  },
+  "booking": {
+    "label": "BOOK NOW",
+    "title": "Make Appointment",
+    "steps": {
+      "barber": "Barber",
+      "service": "Service",
+      "date": "Date",
+      "time": "Time"
+    },
+    "selectBarber": "Choose your barber",
+    "selectService": "Select a service",
+    "selectDate": "Pick a date",
+    "selectTime": "Choose a time",
+    "summary": "BOOKING SUMMARY",
+    "back": "BACK",
+    "next": "NEXT",
+    "confirm": "CONFIRM BOOKING",
+    "success": {
+      "title": "Booking Confirmed!",
+      "message": "We look forward to seeing you",
+      "viewAppointments": "VIEW MY APPOINTMENTS",
+      "backHome": "BACK TO HOME"
+    }
+  },
+  "profile": {
+    "tabs": {
+      "appointments": "APPOINTMENTS",
+      "settings": "SETTINGS"
+    },
+    "newAppointment": "BOOK NEW APPOINTMENT",
+    "upcoming": "UPCOMING",
+    "past": "PAST APPOINTMENTS",
+    "noUpcoming": "No upcoming appointments",
+    "cancel": "Cancel",
+    "cancelled": "CANCELLED",
+    "completed": "COMPLETED",
+    "editProfile": "PROFILE INFORMATION",
+    "edit": "Edit Profile",
+    "save": "Save Changes",
+    "cancelEdit": "Cancel",
+    "logout": "Log Out",
+    "dangerZone": "DANGER ZONE",
+    "deleteAccount": "Delete Account",
+    "deleteModal": {
+      "title": "Delete Account?",
+      "message": "This action cannot be undone. All your data will be permanently deleted.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
     }
   }
 }

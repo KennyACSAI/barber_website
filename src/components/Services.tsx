@@ -27,10 +27,10 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-32 bg-background">
+    <section id="services" className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-20">
+          <div className="mb-12">
             <h2 className="text-minimal text-muted-foreground mb-4">{t('services.label')}</h2>
             <h3 className="text-4xl md:text-6xl font-light text-architectural">
               {t('services.title')}

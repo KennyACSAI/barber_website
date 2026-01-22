@@ -2,13 +2,17 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import mainPhoto from "@/assets/main_photo.jpg";
+import logo from "@/assets/logo.jpg";
+import { useAuth } from "@/context/AuthContext";
 
 const Hero = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   const handleAppointment = () => {
-    navigate("/login");
+    // If logged in, go to booking. Otherwise go to login.
+    navigate(isAuthenticated ? "/booking" : "/login");
   };
 
   return (
@@ -26,12 +30,21 @@ const Hero = () => {
       
       {/* Content */}
       <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
-        <h1 className="text-6xl md:text-8xl lg:text-9xl font-light text-white text-architectural mb-8 reveal">
+        {/* Logo */}
+        <div className="mb-8 reveal">
+          <img 
+            src={logo} 
+            alt="San Lorenzo Barber Logo" 
+            className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover border-4 border-white/20"
+          />
+        </div>
+        
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-light text-white text-architectural mb-6 reveal">
           {t('hero.title1')}
           <br />
           {t('hero.title2')}
         </h1>
-        <p className="text-xl md:text-2xl text-white/80 font-light tracking-wide max-w-2xl mx-auto reveal-delayed mb-12">
+        <p className="text-lg md:text-xl text-white/80 font-light tracking-wide max-w-2xl mx-auto reveal-delayed mb-10">
           {t('hero.subtitle')}
         </p>
         

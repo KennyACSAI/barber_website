@@ -5,13 +5,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff, X } from "lucide-react";
 import Navigation from "@/components/Navigation";
+import logo from "@/assets/logo.jpg";
+import { useAuth } from "@/context/AuthContext";
 
 const Signup = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { signup } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showVerification, setShowVerification] = useState(false);
   const [verificationCode, setVerificationCode] = useState(["", "", "", "", "", ""]);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -26,6 +30,7 @@ const Signup = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+    setError('');
   };
 
   const handleCodeChange = (index: number, value: string) => {
@@ -52,11 +57,10 @@ const Signup = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setError('');
     
-    // TODO: Implement actual registration API call
-    console.log("Signup:", formData);
-    
-    // Simulate API call
+    // For demo, skip straight to verification modal
+    // In real app, would send verification email here
     setTimeout(() => {
       setIsLoading(false);
       setShowVerification(true);
@@ -69,20 +73,26 @@ const Signup = () => {
 
     setIsVerifying(true);
     
-    // TODO: Implement actual verification API call
-    console.log("Verification code:", code);
+    // Accept any 6-digit code for demo
+    const success = await signup(
+      formData.firstName, 
+      formData.lastName, 
+      formData.email, 
+      formData.password
+    );
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsVerifying(false);
+    if (success) {
       setShowVerification(false);
-      // navigate to login or booking after successful verification
-      navigate("/login");
-    }, 1000);
+      navigate("/booking");
+    } else {
+      setError(t('auth.signupError'));
+    }
+    
+    setIsVerifying(false);
   };
 
   const handleResendCode = () => {
-    // TODO: Implement resend code logic
+    // Simulate resend
     console.log("Resending code to:", formData.email);
   };
 
@@ -93,13 +103,29 @@ const Signup = () => {
       <div id="page-content" className="lang-transition">
         <section className="min-h-screen flex items-center justify-center pt-20 pb-12 px-6">
           <div className="w-full max-w-md">
+            {/* Logo */}
+            <div className="flex justify-center mb-8">
+              <img 
+                src={logo} 
+                alt="San Lorenzo Barber Logo" 
+                className="w-24 h-24 rounded-full object-cover border-2 border-border"
+              />
+            </div>
+
             {/* Header */}
-            <div className="text-center mb-12">
+            <div className="text-center mb-10">
               <h1 className="text-minimal text-muted-foreground mb-4">{t('auth.signup.label')}</h1>
               <h2 className="text-4xl md:text-5xl font-light text-architectural">
                 {t('auth.signup.title')}
               </h2>
             </div>
+
+            {/* Error Message */}
+            {error && (
+              <div className="mb-6 p-4 border border-destructive/50 bg-destructive/10 text-destructive text-sm rounded-lg">
+                {error}
+              </div>
+            )}
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-6">

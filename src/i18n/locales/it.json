@@ -1,12 +1,14 @@
 {
   "nav": {
     "services": "SERVIZI",
-    "contact": "CONTATTI"
+    "contact": "CONTATTI",
+    "login": "ACCEDI",
+    "profile": "PROFILO"
   },
   "hero": {
     "title1": "SAN LORENZO",
     "title2": "BARBER",
-    "subtitle": "Esperienza di grooming premium nel cuore di Roma",
+    "subtitle": "Esperienza da barbiere premium nel cuore di Roma",
     "cta": "PRENOTA ORA"
   },
   "services": {
@@ -77,6 +79,8 @@
     "loginLink": "Accedi",
     "backToHome": "Torna alla home",
     "passwordHint": "Minimo 8 caratteri",
+    "loginError": "Email o password non validi",
+    "signupError": "Email già registrata",
     "login": {
       "label": "BENTORNATO",
       "title": "Accedi",
@@ -94,6 +98,56 @@
       "submit": "VERIFICA",
       "noCode": "Non hai ricevuto il codice?",
       "resend": "Invia di nuovo"
+    }
+  },
+  "booking": {
+    "label": "PRENOTA",
+    "title": "Fissa un Appuntamento",
+    "steps": {
+      "barber": "Barbiere",
+      "service": "Servizio",
+      "date": "Data",
+      "time": "Orario"
+    },
+    "selectBarber": "Scegli il tuo barbiere",
+    "selectService": "Seleziona un servizio",
+    "selectDate": "Scegli una data",
+    "selectTime": "Scegli un orario",
+    "summary": "RIEPILOGO PRENOTAZIONE",
+    "back": "INDIETRO",
+    "next": "AVANTI",
+    "confirm": "CONFERMA PRENOTAZIONE",
+    "success": {
+      "title": "Prenotazione Confermata!",
+      "message": "Ti aspettiamo",
+      "viewAppointments": "VEDI I MIEI APPUNTAMENTI",
+      "backHome": "TORNA ALLA HOME"
+    }
+  },
+  "profile": {
+    "tabs": {
+      "appointments": "APPUNTAMENTI",
+      "settings": "IMPOSTAZIONI"
+    },
+    "newAppointment": "PRENOTA NUOVO APPUNTAMENTO",
+    "upcoming": "PROSSIMI",
+    "past": "APPUNTAMENTI PASSATI",
+    "noUpcoming": "Nessun appuntamento in programma",
+    "cancel": "Annulla",
+    "cancelled": "ANNULLATO",
+    "completed": "COMPLETATO",
+    "editProfile": "INFORMAZIONI PROFILO",
+    "edit": "Modifica Profilo",
+    "save": "Salva Modifiche",
+    "cancelEdit": "Annulla",
+    "logout": "Esci",
+    "dangerZone": "ZONA PERICOLOSA",
+    "deleteAccount": "Elimina Account",
+    "deleteModal": {
+      "title": "Eliminare l'Account?",
+      "message": "Questa azione non può essere annullata. Tutti i tuoi dati saranno eliminati permanentemente.",
+      "cancel": "Annulla",
+      "confirm": "Elimina"
     }
   }
 }

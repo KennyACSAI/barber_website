@@ -4,12 +4,15 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useAuth } from "@/context/AuthContext";
+import { User } from "lucide-react";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
+  const { isAuthenticated } = useAuth();
 
   const scrollToSection = (sectionId: string) => {
     setIsMenuOpen(false);
@@ -68,6 +71,23 @@ const Navigation = () => {
         <div className="hidden md:flex items-center space-x-4">
           <LanguageSwitcher />
           <ThemeToggle />
+          {isAuthenticated ? (
+            <button
+              onClick={() => navigate('/profile')}
+              className="w-9 h-9 rounded-full bg-foreground/10 flex items-center justify-center hover:bg-foreground/20 transition-colors duration-300"
+            >
+              <User className="w-4 h-4 text-foreground" />
+            </button>
+          ) : (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate('/login')}
+              className="text-minimal"
+            >
+              {t('nav.login')}
+            </Button>
+          )}
         </div>
 
         <Button
@@ -96,6 +116,23 @@ const Navigation = () => {
             >
               {t('nav.contact')}
             </button>
+            
+            {/* Profile/Login for Mobile */}
+            {isAuthenticated ? (
+              <button 
+                onClick={() => { navigate('/profile'); setIsMenuOpen(false); }}
+                className="block text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300"
+              >
+                {t('nav.profile')}
+              </button>
+            ) : (
+              <button 
+                onClick={() => { navigate('/login'); setIsMenuOpen(false); }}
+                className="block text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300"
+              >
+                {t('nav.login')}
+              </button>
+            )}
             
             {/* Mobile Language & Theme Toggle */}
             <div className="pt-4 border-t border-border flex items-center justify-between">

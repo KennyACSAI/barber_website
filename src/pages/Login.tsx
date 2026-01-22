@@ -5,11 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 import Navigation from "@/components/Navigation";
+import logo from "@/assets/logo.jpg";
+import { useAuth } from "@/context/AuthContext";
 
 const Login = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -21,21 +25,23 @@ const Login = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+    setError('');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setError('');
     
-    // TODO: Implement actual authentication
-    console.log("Login:", formData);
+    const success = await login(formData.email, formData.password);
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      // navigate to booking page after successful login
-      // navigate("/booking");
-    }, 1000);
+    if (success) {
+      navigate("/booking");
+    } else {
+      setError(t('auth.loginError'));
+    }
+    
+    setIsLoading(false);
   };
 
   return (
@@ -45,13 +51,29 @@ const Login = () => {
       <div id="page-content" className="lang-transition">
         <section className="min-h-screen flex items-center justify-center pt-20 pb-12 px-6">
           <div className="w-full max-w-md">
+            {/* Logo */}
+            <div className="flex justify-center mb-8">
+              <img 
+                src={logo} 
+                alt="San Lorenzo Barber Logo" 
+                className="w-24 h-24 rounded-full object-cover border-2 border-border"
+              />
+            </div>
+
             {/* Header */}
-            <div className="text-center mb-12">
+            <div className="text-center mb-10">
               <h1 className="text-minimal text-muted-foreground mb-4">{t('auth.login.label')}</h1>
               <h2 className="text-4xl md:text-5xl font-light text-architectural">
                 {t('auth.login.title')}
               </h2>
             </div>
+
+            {/* Error Message */}
+            {error && (
+              <div className="mb-6 p-4 border border-destructive/50 bg-destructive/10 text-destructive text-sm rounded-lg">
+                {error}
+              </div>
+            )}
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
