@@ -2,23 +2,23 @@ const Services = () => {
   const services = [
     {
       number: "01",
-      title: "RESIDENTIAL",
-      description: "Crafting homes that reflect individual lifestyles while maintaining architectural integrity"
+      title: "CLASSIC CUT",
+      description: "Traditional barbering techniques with modern precision for the perfect haircut"
     },
     {
       number: "02", 
-      title: "COMMERCIAL",
-      description: "Designing functional spaces that enhance business environments and user experiences"
+      title: "BEARD TRIM",
+      description: "Expert shaping and styling to keep your beard looking sharp and well-groomed"
     },
     {
       number: "03",
-      title: "RENOVATION",
-      description: "Transforming existing structures with contemporary sensibilities and sustainable practices"
+      title: "HOT TOWEL SHAVE",
+      description: "Luxurious straight razor shave with hot towels for the smoothest finish"
     },
     {
       number: "04",
-      title: "CONSULTATION",
-      description: "Providing expert guidance on design direction, planning, and architectural solutions"
+      title: "GROOMING PACKAGE",
+      description: "Complete styling experience including haircut, beard work, and facial treatment"
     }
   ];
 
@@ -29,7 +29,7 @@ const Services = () => {
           <div className="mb-20">
             <h2 className="text-minimal text-muted-foreground mb-4">SERVICES</h2>
             <h3 className="text-4xl md:text-6xl font-light text-architectural">
-              What We Do
+              What We Offer
             </h3>
           </div>
           

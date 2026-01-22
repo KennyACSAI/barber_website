@@ -1,26 +1,19 @@
-import project1 from "@/assets/project-1.jpg";
-import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
-
 const Portfolio = () => {
   const projects = [
     {
-      image: project1,
-      title: "MINIMAL RESIDENCE",
-      location: "NEW YORK, 2024",
-      description: "A contemporary home focusing on light, space, and material honesty"
+      title: "CLASSIC FADE",
+      location: "SIGNATURE STYLE",
+      description: "Clean and sharp fade with precision blending for a timeless look"
     },
     {
-      image: project2,
-      title: "CORPORATE HEADQUARTERS",
-      location: "LONDON, 2023",
-      description: "Modern office space emphasizing collaboration and natural elements"
+      title: "BEARD SCULPTING",
+      location: "GROOMING EXPERTISE",
+      description: "Expert beard shaping and trimming for the distinguished gentleman"
     },
     {
-      image: project3,
-      title: "CULTURAL CENTER",
-      location: "TOKYO, 2023",
-      description: "Public architecture that bridges tradition with contemporary design"
+      title: "MODERN UNDERCUT",
+      location: "TRENDING STYLE",
+      description: "Contemporary styling combining classic techniques with modern trends"
     }
   ];
 
@@ -29,9 +22,9 @@ const Portfolio = () => {
       <div className="container mx-auto px-6">
         <div className="max-w-7xl mx-auto">
           <div className="mb-20">
-            <h2 className="text-minimal text-muted-foreground mb-4">SELECTED WORK</h2>
+            <h2 className="text-minimal text-muted-foreground mb-4">OUR WORK</h2>
             <h3 className="text-4xl md:text-6xl font-light text-architectural">
-              Our Projects
+              Style Gallery
             </h3>
           </div>
           
@@ -39,12 +32,12 @@ const Portfolio = () => {
             {projects.map((project, index) => (
               <div key={index} className="group">
                 <div className="relative overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-[70vh] object-cover transition-transform duration-700 group-hover:scale-105"
+                  <div 
+                    className={`w-full h-[70vh] transition-transform duration-700 group-hover:scale-105 ${
+                      index % 2 === 0 ? 'bg-foreground' : 'bg-muted-foreground/20'
+                    }`}
                   />
-                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-background/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
                 
                 <div className="mt-8 grid md:grid-cols-3 gap-8">

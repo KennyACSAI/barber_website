@@ -65,14 +65,8 @@ const BlogPost = () => {
               </p>
             </div>
             
-            {/* Featured Image */}
-            <div className="w-full h-96 mb-12 overflow-hidden">
-              <img 
-                src={post.image} 
-                alt={post.title}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-              />
-            </div>
+            {/* Featured Image - Solid color instead */}
+            <div className="w-full h-96 mb-12 overflow-hidden bg-foreground" />
             
             {/* Article Content */}
             <div className="prose prose-lg max-w-none">
@@ -112,7 +106,7 @@ const BlogPost = () => {
                 <div className="w-16 h-16 bg-muted rounded-full"></div>
                 <div>
                   <h3 className="text-lg font-medium text-foreground">{post.author}</h3>
-                  <p className="text-muted-foreground">Architect & Writer</p>
+                  <p className="text-muted-foreground">Master Barber & Writer</p>
                 </div>
               </div>
             </div>
@@ -124,15 +118,11 @@ const BlogPost = () => {
                 {blogPosts
                   .filter(p => p.id !== post.id && p.category === post.category)
                   .slice(0, 2)
-                  .map(relatedPost => (
+                  .map((relatedPost, index) => (
                     <Link key={relatedPost.id} to={`/blog/${relatedPost.id}`} className="group">
-                      <div className="w-full h-48 mb-4 overflow-hidden">
-                        <img 
-                          src={relatedPost.image} 
-                          alt={relatedPost.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                      </div>
+                      <div className={`w-full h-48 mb-4 overflow-hidden ${
+                        index % 2 === 0 ? 'bg-foreground' : 'bg-muted-foreground/30'
+                      }`} />
                       <h4 className="text-lg font-light text-architectural group-hover:text-muted-foreground transition-colors duration-300 mb-2">
                         {relatedPost.title}
                       </h4>

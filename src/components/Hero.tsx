@@ -1,33 +1,37 @@
-import heroImage from "@/assets/hero-architecture.jpg";
+import { Button } from "@/components/ui/button";
 
 const Hero = () => {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroImage})` }}
-      />
-      
-      {/* Overlay */}
-      <div className="absolute inset-0 hero-overlay" />
+      {/* Solid Background */}
+      <div className="absolute inset-0 bg-foreground" />
       
       {/* Content */}
       <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
-        <h1 className="text-6xl md:text-8xl lg:text-9xl font-light text-white text-architectural mb-8 reveal">
-          MINIMAL
+        <h1 className="text-6xl md:text-8xl lg:text-9xl font-light text-background text-architectural mb-8 reveal">
+          CLASSIC
           <br />
-          ARCHITECTURE
+          BARBERSHOP
         </h1>
-        <p className="text-xl md:text-2xl text-white/80 font-light tracking-wide max-w-2xl mx-auto reveal-delayed">
-          Creating spaces that inspire through thoughtful design and uncompromising quality
+        <p className="text-xl md:text-2xl text-background/80 font-light tracking-wide max-w-2xl mx-auto reveal-delayed mb-12">
+          Premium grooming experience with timeless craftsmanship and attention to detail
         </p>
+        
+        {/* Big Appointment Button */}
+        <div className="reveal-delayed">
+          <Button 
+            size="lg"
+            className="bg-background text-foreground hover:bg-background/90 text-lg px-12 py-8 h-auto font-medium tracking-wide"
+          >
+            MAKE APPOINTMENT
+          </Button>
+        </div>
       </div>
       
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 reveal-delayed">
-        <div className="w-px h-16 bg-white/40" />
-        <div className="text-minimal text-white/60 mt-4 rotate-90 origin-center">
+        <div className="w-px h-16 bg-background/40" />
+        <div className="text-minimal text-background/60 mt-4 rotate-90 origin-center">
           SCROLL
         </div>
       </div>
