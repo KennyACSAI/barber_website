@@ -9,12 +9,12 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
         <h1 className="text-6xl md:text-8xl lg:text-9xl font-light text-background text-architectural mb-8 reveal">
-          CLASSIC
+          SAN LORENZO
           <br />
-          BARBERSHOP
+          BARBER
         </h1>
         <p className="text-xl md:text-2xl text-background/80 font-light tracking-wide max-w-2xl mx-auto reveal-delayed mb-12">
-          Premium grooming experience with timeless craftsmanship and attention to detail
+          Premium grooming experience in the heart of Roma
         </p>
         
         {/* Big Appointment Button */}
@@ -22,8 +22,11 @@ const Hero = () => {
           <Button 
             size="lg"
             className="bg-background text-foreground hover:bg-background/90 text-lg px-12 py-8 h-auto font-medium tracking-wide"
+            asChild
           >
-            MAKE APPOINTMENT
+            <a href="https://www.fresha.com/lvp/ferro-barber-shop-via-tiburtina-roma-VEQ701" target="_blank" rel="noopener noreferrer">
+              MAKE APPOINTMENT
+            </a>
           </Button>
         </div>
       </div>
