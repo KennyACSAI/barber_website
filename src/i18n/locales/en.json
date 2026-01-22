@@ -112,68 +112,40 @@
       "date": "Date",
       "time": "Time"
     },
-    "selectBarber": "Choose your barber",
-    "selectService": "Select a service",
-    "selectDate": "Pick a date",
-    "selectTime": "Choose a time",
-    "summary": "BOOKING SUMMARY",
-    "back": "BACK",
-    "next": "NEXT",
-    "confirm": "CONFIRM BOOKING",
-    "today": "TODAY",
-    "taken": "Taken",
-    "tooLate": "Too late",
-    "full": "FULL",
-    "slotsLeft": "slots",
-    "noSlots": "No available time slots for this date",
-    "daysShort": {
-      "sunday": "SUN",
-      "monday": "MON",
-      "tuesday": "TUE",
-      "wednesday": "WED",
-      "thursday": "THU",
-      "friday": "FRI",
-      "saturday": "SAT"
-    },
-    "monthsShort": {
-      "jan": "Jan",
-      "feb": "Feb",
-      "mar": "Mar",
-      "apr": "Apr",
-      "may": "May",
-      "jun": "Jun",
-      "jul": "Jul",
-      "aug": "Aug",
-      "sep": "Sep",
-      "oct": "Oct",
-      "nov": "Nov",
-      "dec": "Dec"
-    },
+    "selectBarber": "Select Your Barber",
+    "selectService": "Select Your Service",
+    "selectDate": "Select Date",
+    "selectTime": "Select Time",
+    "continue": "Continue",
+    "back": "Back",
+    "confirm": "Confirm Booking",
+    "booking": "Booking...",
+    "closed": "Closed",
+    "noSlots": "No available slots",
     "success": {
       "title": "Booking Confirmed!",
-      "message": "We look forward to seeing you",
-      "viewAppointments": "VIEW MY APPOINTMENTS",
-      "backHome": "BACK TO HOME"
+      "message": "Your appointment has been successfully booked.",
+      "details": "Appointment Details",
+      "viewBookings": "View My Bookings",
+      "backHome": "Back to Home"
     }
   },
   "profile": {
     "tabs": {
-      "appointments": "APPOINTMENTS",
-      "settings": "SETTINGS"
+      "appointments": "Appointments",
+      "settings": "Settings"
     },
-    "newAppointment": "BOOK NEW APPOINTMENT",
     "upcoming": "UPCOMING",
-    "past": "PAST APPOINTMENTS",
+    "past": "PAST",
     "noUpcoming": "No upcoming appointments",
+    "noPast": "No past appointments",
+    "newAppointment": "Book New Appointment",
     "cancel": "Cancel",
-    "cancelled": "CANCELLED",
-    "completed": "COMPLETED",
-    "editProfile": "PROFILE INFORMATION",
+    "cancelled": "Cancelled",
+    "completed": "Completed",
     "edit": "Edit Profile",
-    "save": "Save Changes",
-    "cancelEdit": "Cancel",
+    "save": "Save",
     "logout": "Log Out",
-    "dangerZone": "DANGER ZONE",
     "deleteAccount": "Delete Account",
     "deleteModal": {
       "title": "Delete Account?",
@@ -182,15 +154,30 @@
       "confirm": "Delete"
     }
   },
+  "adminLogin": {
+    "label": "ADMIN ACCESS",
+    "title": "Admin Login",
+    "username": "USERNAME",
+    "usernamePlaceholder": "Enter username",
+    "password": "PASSWORD",
+    "submit": "LOGIN",
+    "loading": "Logging in...",
+    "error": "Invalid username or password",
+    "backToHome": "Back to home"
+  },
   "admin": {
     "title": "Admin Panel",
     "subtitle": "Manage all appointments",
+    "superAdmin": "Super Admin",
+    "workerAdmin": "Worker Admin",
     "search": "Search by name, email, phone...",
     "noAppointments": "No appointments found",
     "showing": "Showing",
     "of": "of",
     "appointments": "appointments",
     "delete": "Delete",
+    "logout": "Logout",
+    "refresh": "Refresh",
     "stats": {
       "total": "Total",
       "upcoming": "Upcoming",
@@ -227,6 +214,26 @@
       "clientInfo": "Client Information",
       "serviceInfo": "Service Information",
       "close": "Close"
+    },
+    "adminManagement": {
+      "title": "Admin Management",
+      "createNew": "Create New Admin",
+      "noWorkerAdmins": "No worker admins created yet",
+      "createTitle": "Create Worker Admin",
+      "createDescription": "Create a new admin account for your workers",
+      "name": "Full Name",
+      "namePlaceholder": "Enter full name",
+      "username": "Username",
+      "usernamePlaceholder": "Enter username",
+      "password": "Password",
+      "passwordHint": "Minimum 6 characters",
+      "allFieldsRequired": "All fields are required",
+      "createSuccess": "Worker admin created successfully",
+      "cancel": "Cancel",
+      "create": "Create Admin",
+      "deleteTitle": "Delete Worker Admin?",
+      "deleteMessage": "Are you sure you want to delete",
+      "delete": "Delete"
     }
   }
 }

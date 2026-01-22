@@ -83,14 +83,14 @@
     "phoneHint": "Includi il prefisso (es. +39 per Italia)",
     "phoneError": "Inserisci un numero di telefono valido",
     "loginError": "Email o password non validi",
-    "signupError": "Email già registrata",
+    "signupError": "Email già esistente",
     "login": {
       "label": "BENTORNATO",
       "title": "Accedi",
       "submit": "ACCEDI"
     },
     "signup": {
-      "label": "INIZIA ORA",
+      "label": "INIZIA",
       "title": "Crea Account",
       "submit": "REGISTRATI"
     },
@@ -104,76 +104,48 @@
     }
   },
   "booking": {
-    "label": "PRENOTA",
-    "title": "Fissa un Appuntamento",
+    "label": "PRENOTA ORA",
+    "title": "Prenota Appuntamento",
     "steps": {
       "barber": "Barbiere",
       "service": "Servizio",
       "date": "Data",
       "time": "Orario"
     },
-    "selectBarber": "Scegli il tuo barbiere",
-    "selectService": "Seleziona un servizio",
-    "selectDate": "Scegli una data",
-    "selectTime": "Scegli un orario",
-    "summary": "RIEPILOGO PRENOTAZIONE",
-    "back": "INDIETRO",
-    "next": "AVANTI",
-    "confirm": "CONFERMA PRENOTAZIONE",
-    "today": "OGGI",
-    "taken": "Occupato",
-    "tooLate": "Troppo tardi",
-    "full": "PIENO",
-    "slotsLeft": "posti",
-    "noSlots": "Nessun orario disponibile per questa data",
-    "daysShort": {
-      "sunday": "DOM",
-      "monday": "LUN",
-      "tuesday": "MAR",
-      "wednesday": "MER",
-      "thursday": "GIO",
-      "friday": "VEN",
-      "saturday": "SAB"
-    },
-    "monthsShort": {
-      "jan": "Gen",
-      "feb": "Feb",
-      "mar": "Mar",
-      "apr": "Apr",
-      "may": "Mag",
-      "jun": "Giu",
-      "jul": "Lug",
-      "aug": "Ago",
-      "sep": "Set",
-      "oct": "Ott",
-      "nov": "Nov",
-      "dec": "Dic"
-    },
+    "selectBarber": "Seleziona il Tuo Barbiere",
+    "selectService": "Seleziona il Servizio",
+    "selectDate": "Seleziona Data",
+    "selectTime": "Seleziona Orario",
+    "continue": "Continua",
+    "back": "Indietro",
+    "confirm": "Conferma Prenotazione",
+    "booking": "Prenotazione...",
+    "closed": "Chiuso",
+    "noSlots": "Nessuno slot disponibile",
     "success": {
       "title": "Prenotazione Confermata!",
-      "message": "Ti aspettiamo",
-      "viewAppointments": "VEDI I MIEI APPUNTAMENTI",
-      "backHome": "TORNA ALLA HOME"
+      "message": "Il tuo appuntamento è stato prenotato con successo.",
+      "details": "Dettagli Appuntamento",
+      "viewBookings": "Vedi le Mie Prenotazioni",
+      "backHome": "Torna alla Home"
     }
   },
   "profile": {
     "tabs": {
-      "appointments": "APPUNTAMENTI",
-      "settings": "IMPOSTAZIONI"
+      "appointments": "Appuntamenti",
+      "settings": "Impostazioni"
     },
-    "newAppointment": "PRENOTA NUOVO APPUNTAMENTO",
-    "upcoming": "PROSSIMI",
-    "past": "APPUNTAMENTI PASSATI",
-    "noUpcoming": "Nessun appuntamento in programma",
+    "upcoming": "IN ARRIVO",
+    "past": "PASSATI",
+    "noUpcoming": "Nessun appuntamento in arrivo",
+    "noPast": "Nessun appuntamento passato",
+    "newAppointment": "Prenota Nuovo Appuntamento",
     "cancel": "Annulla",
-    "cancelled": "ANNULLATO",
-    "completed": "COMPLETATO",
-    "editProfile": "INFORMAZIONI PROFILO",
+    "cancelled": "Annullato",
+    "completed": "Completato",
     "edit": "Modifica Profilo",
-    "save": "Salva Modifiche",
-    "cancelEdit": "Annulla",
+    "save": "Salva",
     "logout": "Esci",
-    "dangerZone": "ZONA PERICOLOSA",
     "deleteAccount": "Elimina Account",
     "deleteModal": {
       "title": "Eliminare l'Account?",
@@ -182,15 +154,30 @@
       "confirm": "Elimina"
     }
   },
+  "adminLogin": {
+    "label": "ACCESSO ADMIN",
+    "title": "Login Admin",
+    "username": "NOME UTENTE",
+    "usernamePlaceholder": "Inserisci nome utente",
+    "password": "PASSWORD",
+    "submit": "ACCEDI",
+    "loading": "Accesso in corso...",
+    "error": "Nome utente o password non validi",
+    "backToHome": "Torna alla home"
+  },
   "admin": {
     "title": "Pannello Admin",
     "subtitle": "Gestisci tutti gli appuntamenti",
+    "superAdmin": "Super Admin",
+    "workerAdmin": "Admin Dipendente",
     "search": "Cerca per nome, email, telefono...",
     "noAppointments": "Nessun appuntamento trovato",
     "showing": "Mostrando",
     "of": "di",
     "appointments": "appuntamenti",
     "delete": "Elimina",
+    "logout": "Esci",
+    "refresh": "Aggiorna",
     "stats": {
       "total": "Totale",
       "upcoming": "In Arrivo",
@@ -227,6 +214,26 @@
       "clientInfo": "Informazioni Cliente",
       "serviceInfo": "Informazioni Servizio",
       "close": "Chiudi"
+    },
+    "adminManagement": {
+      "title": "Gestione Admin",
+      "createNew": "Crea Nuovo Admin",
+      "noWorkerAdmins": "Nessun admin dipendente creato",
+      "createTitle": "Crea Admin Dipendente",
+      "createDescription": "Crea un nuovo account admin per i tuoi dipendenti",
+      "name": "Nome Completo",
+      "namePlaceholder": "Inserisci nome completo",
+      "username": "Nome Utente",
+      "usernamePlaceholder": "Inserisci nome utente",
+      "password": "Password",
+      "passwordHint": "Minimo 6 caratteri",
+      "allFieldsRequired": "Tutti i campi sono obbligatori",
+      "createSuccess": "Admin dipendente creato con successo",
+      "cancel": "Annulla",
+      "create": "Crea Admin",
+      "deleteTitle": "Eliminare Admin Dipendente?",
+      "deleteMessage": "Sei sicuro di voler eliminare",
+      "delete": "Elimina"
     }
   }
 }

@@ -36,12 +36,20 @@ const Login = () => {
     const success = await login(formData.email, formData.password);
     
     if (success) {
+      // Scroll to top before navigating - important for mobile
+      window.scrollTo({ top: 0, behavior: 'instant' });
       navigate("/booking");
     } else {
       setError(t('auth.loginError'));
     }
     
     setIsLoading(false);
+  };
+
+  // Navigate with scroll to top
+  const handleNavigateWithScroll = (path: string) => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    navigate(path);
   };
 
   return (
@@ -146,27 +154,27 @@ const Login = () => {
               </div>
             </div>
 
-            {/* Sign Up Link */}
+            {/* Sign Up Link - Changed to button with scroll to top */}
             <div className="text-center">
               <p className="text-muted-foreground">
                 {t('auth.noAccount')}{" "}
-                <Link 
-                  to="/signup" 
+                <button 
+                  onClick={() => handleNavigateWithScroll('/signup')}
                   className="text-foreground hover:text-muted-foreground transition-colors duration-300 underline"
                 >
                   {t('auth.signUpLink')}
-                </Link>
+                </button>
               </p>
             </div>
 
-            {/* Back to Home */}
+            {/* Back to Home - Changed to button with scroll to top */}
             <div className="text-center mt-8">
-              <Link 
-                to="/" 
+              <button 
+                onClick={() => handleNavigateWithScroll('/')}
                 className="text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300"
               >
                 ← {t('auth.backToHome')}
-              </Link>
+              </button>
             </div>
           </div>
         </section>

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,7 +14,7 @@ const Signup = () => {
   const { signup } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showVerification, setShowVerification] = useState(false);
-  const [verificationCode, setVerificationCode] = useState(["", "", "", "", "", ""]);
+  const [verificationCode, setVerificationCode] = useState("");
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     firstName: "",
@@ -25,6 +25,16 @@ const Signup = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
+  
+  // Single hidden input ref for OTP - works better on mobile
+  const hiddenInputRef = useRef<HTMLInputElement>(null);
+  const modalContentRef = useRef<HTMLDivElement>(null);
+
+  // Navigate with scroll to top
+  const handleNavigateWithScroll = (path: string) => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    navigate(path);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -57,24 +67,43 @@ const Signup = () => {
     return `+${phone.slice(0, 2)} ${phone.slice(2, 5)} ${phone.slice(5, 8)} ${phone.slice(8)}`;
   };
 
-  const handleCodeChange = (index: number, value: string) => {
-    if (value.length > 1) return;
-    
-    const newCode = [...verificationCode];
-    newCode[index] = value;
-    setVerificationCode(newCode);
-
-    // Auto-focus next input
-    if (value && index < 5) {
-      const nextInput = document.getElementById(`code-${index + 1}`);
-      nextInput?.focus();
+  // Focus the input when modal opens - triggers keyboard on mobile
+  useEffect(() => {
+    if (showVerification && hiddenInputRef.current) {
+      // Small delay to ensure modal is fully rendered
+      const timer = setTimeout(() => {
+        if (hiddenInputRef.current) {
+          hiddenInputRef.current.focus();
+          // Additional click for some mobile browsers that need it
+          hiddenInputRef.current.click();
+        }
+      }, 200);
+      return () => clearTimeout(timer);
     }
+  }, [showVerification]);
+
+  // Handle OTP input change
+  const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, 6);
+    setVerificationCode(value);
   };
 
-  const handleCodeKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Backspace" && !verificationCode[index] && index > 0) {
-      const prevInput = document.getElementById(`code-${index - 1}`);
-      prevInput?.focus();
+  // Handle clicking on the code display boxes - focus the hidden input
+  const handleCodeBoxClick = () => {
+    hiddenInputRef.current?.focus();
+  };
+
+  // Close modal
+  const closeModal = () => {
+    setShowVerification(false);
+    setVerificationCode("");
+  };
+
+  // Handle backdrop click - only close if clicking the backdrop itself
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Only close if clicking directly on the backdrop, not on modal content
+    if (e.target === e.currentTarget) {
+      closeModal();
     }
   };
 
@@ -99,8 +128,7 @@ const Signup = () => {
   };
 
   const handleVerification = async () => {
-    const code = verificationCode.join("");
-    if (code.length !== 6) return;
+    if (verificationCode.length !== 6) return;
 
     setIsVerifying(true);
     
@@ -115,6 +143,8 @@ const Signup = () => {
     
     if (success) {
       setShowVerification(false);
+      // Scroll to top before navigating - important for mobile
+      window.scrollTo({ top: 0, behavior: 'instant' });
       navigate("/booking");
     } else {
       setError(t('auth.signupError'));
@@ -127,6 +157,9 @@ const Signup = () => {
     // Simulate resend
     console.log("Resending code to:", formData.email);
   };
+
+  // Convert string to array for display
+  const codeDigits = verificationCode.padEnd(6, ' ').split('');
 
   return (
     <div className="min-h-screen bg-background">
@@ -278,85 +311,130 @@ const Signup = () => {
               </div>
             </div>
 
-            {/* Login Link */}
+            {/* Login Link - Changed to button with scroll to top */}
             <div className="text-center">
               <p className="text-muted-foreground">
                 {t('auth.hasAccount')}{" "}
-                <Link 
-                  to="/login" 
+                <button 
+                  type="button"
+                  onClick={() => handleNavigateWithScroll('/login')}
                   className="text-foreground hover:text-muted-foreground transition-colors duration-300 underline"
                 >
                   {t('auth.loginLink')}
-                </Link>
+                </button>
               </p>
             </div>
 
-            {/* Back to Home */}
+            {/* Back to Home - Changed to button with scroll to top */}
             <div className="text-center mt-8">
-              <Link 
-                to="/" 
+              <button 
+                type="button"
+                onClick={() => handleNavigateWithScroll('/')}
                 className="text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300"
               >
                 ← {t('auth.backToHome')}
-              </Link>
+              </button>
             </div>
           </div>
         </section>
       </div>
 
-      {/* Verification Modal */}
+      {/* Verification Modal - Mobile optimized with single hidden input */}
       {showVerification && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          onClick={handleBackdropClick}
+          style={{ touchAction: 'manipulation' }}
+        >
           {/* Backdrop */}
-          <div 
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={() => setShowVerification(false)}
-          />
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
           
           {/* Modal */}
-          <div className="relative bg-background border border-border p-8 md:p-12 w-full max-w-md mx-6 animate-fade-in-up">
+          <div 
+            ref={modalContentRef}
+            className="relative bg-background border border-border p-6 md:p-12 w-full max-w-md animate-fade-in-up z-10"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Close Button */}
             <button
-              onClick={() => setShowVerification(false)}
-              className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors duration-300"
+              type="button"
+              onClick={closeModal}
+              className="absolute top-3 right-3 p-2 text-muted-foreground hover:text-foreground transition-colors duration-300"
+              style={{ touchAction: 'manipulation' }}
+              aria-label="Close"
             >
               <X className="w-5 h-5" />
             </button>
 
             {/* Header */}
-            <div className="text-center mb-8">
-              <h3 className="text-minimal text-muted-foreground mb-4">{t('auth.verification.label')}</h3>
-              <h4 className="text-2xl md:text-3xl font-light text-architectural mb-4">
+            <div className="text-center mb-6 md:mb-8">
+              <h3 className="text-minimal text-muted-foreground mb-3 md:mb-4">{t('auth.verification.label')}</h3>
+              <h4 className="text-xl md:text-3xl font-light text-architectural mb-3 md:mb-4">
                 {t('auth.verification.title')}
               </h4>
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground text-sm md:text-base">
                 {t('auth.verification.description')}{" "}
-                <span className="text-foreground">{formData.email}</span>
+                <span className="text-foreground break-all">{formData.email}</span>
               </p>
             </div>
 
-            {/* Code Input */}
-            <div className="flex justify-center gap-2 md:gap-3 mb-8">
-              {verificationCode.map((digit, index) => (
-                <Input
-                  key={index}
-                  id={`code-${index}`}
-                  type="text"
-                  inputMode="numeric"
-                  maxLength={1}
-                  value={digit}
-                  onChange={(e) => handleCodeChange(index, e.target.value)}
-                  onKeyDown={(e) => handleCodeKeyDown(index, e)}
-                  className="w-10 h-12 md:w-12 md:h-14 text-center text-xl bg-transparent border-border focus:border-foreground transition-colors duration-300"
-                />
-              ))}
+            {/* Hidden input that captures all OTP digits - positioned over boxes for mobile keyboard trigger */}
+            <div className="relative mb-6 md:mb-8">
+              {/* Visual code boxes */}
+              <div 
+                className="flex justify-center gap-2 md:gap-3 cursor-text"
+                onClick={handleCodeBoxClick}
+                style={{ touchAction: 'manipulation' }}
+              >
+                {codeDigits.map((digit, index) => (
+                  <div
+                    key={index}
+                    className={`
+                      w-11 h-14 md:w-12 md:h-14 
+                      flex items-center justify-center 
+                      text-xl font-medium 
+                      border rounded-md 
+                      transition-all duration-200
+                      ${index === verificationCode.length 
+                        ? 'border-foreground ring-2 ring-foreground/20' 
+                        : 'border-border'
+                      }
+                      ${digit.trim() ? 'bg-foreground/5' : 'bg-transparent'}
+                    `}
+                  >
+                    {digit.trim() || ''}
+                  </div>
+                ))}
+              </div>
+              
+              {/* Actual input - positioned over the boxes, transparent but focusable */}
+              <input
+                ref={hiddenInputRef}
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                autoComplete="one-time-code"
+                autoFocus
+                value={verificationCode}
+                onChange={handleOtpChange}
+                maxLength={6}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-text"
+                style={{ 
+                  touchAction: 'manipulation',
+                  fontSize: '16px', // Prevents iOS zoom on focus
+                  caretColor: 'transparent'
+                }}
+                aria-label="Verification code"
+              />
             </div>
 
             {/* Verify Button */}
             <Button
+              type="button"
               onClick={handleVerification}
-              disabled={isVerifying || verificationCode.join("").length !== 6}
-              className="w-full h-12 !bg-black !text-white dark:!bg-white dark:!text-black hover:opacity-90 text-minimal tracking-wider mb-6"
+              disabled={isVerifying || verificationCode.length !== 6}
+              className="w-full h-12 !bg-black !text-white dark:!bg-white dark:!text-black hover:opacity-90 text-minimal tracking-wider mb-4 md:mb-6"
+              style={{ touchAction: 'manipulation' }}
             >
               {isVerifying ? t('auth.loading') : t('auth.verification.submit')}
             </Button>
@@ -366,8 +444,10 @@ const Signup = () => {
               <p className="text-muted-foreground text-sm">
                 {t('auth.verification.noCode')}{" "}
                 <button 
+                  type="button"
                   onClick={handleResendCode}
                   className="text-foreground hover:text-muted-foreground transition-colors duration-300 underline"
+                  style={{ touchAction: 'manipulation' }}
                 >
                   {t('auth.verification.resend')}
                 </button>
