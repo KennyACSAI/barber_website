@@ -117,6 +117,10 @@
     "back": "INDIETRO",
     "next": "AVANTI",
     "confirm": "CONFERMA PRENOTAZIONE",
+    "today": "OGGI",
+    "taken": "Occupato",
+    "tooLate": "Troppo tardi",
+    "noSlots": "Nessun orario disponibile per questa data",
     "success": {
       "title": "Prenotazione Confermata!",
       "message": "Ti aspettiamo",
