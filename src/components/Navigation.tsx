@@ -5,29 +5,42 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMenuOpen(false);
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsMenuOpen(false);
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="text-minimal text-foreground">
+        <button 
+          onClick={scrollToTop}
+          className="text-minimal text-foreground hover:text-muted-foreground transition-colors duration-300 cursor-pointer"
+        >
           SHARP CUTS
-        </div>
+        </button>
         
         <div className="hidden md:flex items-center space-x-12">
-          <a href="/work" className="text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300">
-            GALLERY
-          </a>
-          <a href="/services" className="text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300">
+          <button 
+            onClick={() => scrollToSection('services')} 
+            className="text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300"
+          >
             SERVICES
-          </a>
-          <a href="/about" className="text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300">
-            ABOUT
-          </a>
-          <a href="/blog" className="text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300">
-            BLOG
-          </a>
-          <a href="/contact" className="text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300">
+          </button>
+          <button 
+            onClick={() => scrollToSection('contact')} 
+            className="text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300"
+          >
             CONTACT
-          </a>
+          </button>
         </div>
 
         <div className="hidden md:flex items-center space-x-4">
@@ -48,21 +61,18 @@ const Navigation = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-background border-b border-border">
           <div className="container mx-auto px-6 py-6 space-y-4">
-            <a href="/work" className="block text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300">
-              GALLERY
-            </a>
-            <a href="/services" className="block text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300">
+            <button 
+              onClick={() => scrollToSection('services')} 
+              className="block text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300"
+            >
               SERVICES
-            </a>
-            <a href="/about" className="block text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300">
-              ABOUT
-            </a>
-            <a href="/blog" className="block text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300">
-              BLOG
-            </a>
-            <a href="/contact" className="block text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300">
+            </button>
+            <button 
+              onClick={() => scrollToSection('contact')} 
+              className="block text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300"
+            >
               CONTACT
-            </a>
+            </button>
             
             {/* Mobile Theme Toggle */}
             <div className="pt-4 border-t border-border">
