@@ -6,7 +6,7 @@ import { blogPosts } from "@/data/blogPosts";
 const Blog = () => {
   const [activeCategory, setActiveCategory] = useState("ALL");
   
-  const categories = ["ALL", "SUSTAINABILITY", "DESIGN", "URBAN PLANNING"];
+  const categories = ["ALL", "GROOMING", "STYLE", "TRENDS"];
   
   const filteredPosts = activeCategory === "ALL" 
     ? blogPosts 
@@ -22,11 +22,11 @@ const Blog = () => {
           <div className="max-w-7xl mx-auto">
             <div className="mb-12">
               <h1 className="text-6xl md:text-8xl font-light text-architectural mb-8">
-                INSIGHTS
+                THE BLOG
               </h1>
               <p className="text-xl text-muted-foreground max-w-3xl">
-                Exploring the intersection of architecture, design, and human experience 
-                through thoughtful analysis and contemporary perspectives.
+                Tips, trends, and insights from our master barbers to help you 
+                look and feel your best every day.
               </p>
             </div>
           </div>
@@ -66,16 +66,16 @@ const Blog = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
-              {filteredPosts.map((post) => (
+              {filteredPosts.map((post, index) => (
                 <article key={post.id} className="group">
                   <Link to={`/blog/${post.id}`} className="block">
                     <div className="relative overflow-hidden mb-6">
-                      <img 
-                        src={post.image} 
-                        alt={post.title}
-                        className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-105"
+                      <div 
+                        className={`w-full h-64 transition-transform duration-700 group-hover:scale-105 ${
+                          index % 2 === 0 ? 'bg-foreground' : 'bg-muted-foreground/30'
+                        }`}
                       />
-                      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="absolute inset-0 bg-background/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       
                       {/* Category Badge */}
                       <div className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm px-3 py-1">
@@ -121,10 +121,10 @@ const Blog = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-6xl font-light text-architectural mb-8">
-              Stay Informed
+              Stay Sharp
             </h2>
             <p className="text-xl text-muted-foreground mb-12">
-              Subscribe to our newsletter for the latest insights on architecture and design
+              Subscribe to our newsletter for grooming tips, style guides, and exclusive offers
             </p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
               <input 
